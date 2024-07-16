@@ -6,20 +6,22 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:00:21 by marsoare          #+#    #+#             */
-/*   Updated: 2024/07/16 16:29:45 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/07/16 17:17:08 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
+#include <fcntl.h>
 #include <stdio.h>
 #include <sys/wait.h>
 #include <errno.h>
 
-int main(int agrc, char* argv[])
+int main()
 {
-	printf("printf1\n");
-	fork();
-	printf("printf2\n");
-	wait(NULL);
+	char	*argv[] =  {"cat", "./infile", NULL};
+	if (execve("/bin/cat", argv, NULL) == -1)
+	{
+		perror("execve"); // Print error message if execve fails
+  	}
 	return 0;
 }
