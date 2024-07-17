@@ -1,21 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: marsoare <marsoare@student.42porto.co      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/16 13:00:21 by marsoare          #+#    #+#             */
-/*   Updated: 2024/07/16 17:54:56 by marsoare         ###   ########.fr       */
+/*   Created: 2024/04/15 09:43:39 by marsoare          #+#    #+#             */
+/*   Updated: 2024/04/15 09:46:35 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-int main()
+void	ft_putchar_fd(char c, int fd)
 {
-	char	*argv[] =  {"cat", "./infile", NULL};
-	if (execve("/bin/cat", argv, NULL) == -1)
-		perror("execve"); // Print error message if execve fails
-	return 0;
+	write(fd, &c, 1);
 }

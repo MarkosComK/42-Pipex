@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/16 13:00:21 by marsoare          #+#    #+#             */
-/*   Updated: 2024/07/16 17:54:56 by marsoare         ###   ########.fr       */
+/*   Created: 2024/04/10 13:46:38 by marsoare          #+#    #+#             */
+/*   Updated: 2024/04/13 22:23:06 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-int main()
+int	ft_isalpha(int c)
 {
-	char	*argv[] =  {"cat", "./infile", NULL};
-	if (execve("/bin/cat", argv, NULL) == -1)
-		perror("execve"); // Print error message if execve fails
-	return 0;
+	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122))
+		return (1);
+	return (0);
 }

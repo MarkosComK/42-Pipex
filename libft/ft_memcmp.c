@@ -1,21 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/16 13:00:21 by marsoare          #+#    #+#             */
-/*   Updated: 2024/07/16 17:54:56 by marsoare         ###   ########.fr       */
+/*   Created: 2024/04/12 18:16:39 by marsoare          #+#    #+#             */
+/*   Updated: 2024/04/13 13:03:03 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-int main()
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	char	*argv[] =  {"cat", "./infile", NULL};
-	if (execve("/bin/cat", argv, NULL) == -1)
-		perror("execve"); // Print error message if execve fails
-	return 0;
+	size_t			i;
+	unsigned char	*p1;
+	unsigned char	*p2;
+
+	i = 0;
+	p1 = (unsigned char *)s1;
+	p2 = (unsigned char *)s2;
+	if (n == 0)
+		return (0);
+	while (i < n)
+	{
+		if (p1[i] != p2[i])
+			return (p1[i] - p2[i]);
+		i++;
+	}
+	return (0);
 }

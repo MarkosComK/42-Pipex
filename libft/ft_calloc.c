@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/16 13:00:21 by marsoare          #+#    #+#             */
-/*   Updated: 2024/07/16 17:54:56 by marsoare         ###   ########.fr       */
+/*   Created: 2024/04/13 12:24:27 by marsoare          #+#    #+#             */
+/*   Updated: 2024/04/17 13:33:00 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-int main()
+void	*ft_calloc(size_t nmemb, size_t size)
 {
-	char	*argv[] =  {"cat", "./infile", NULL};
-	if (execve("/bin/cat", argv, NULL) == -1)
-		perror("execve"); // Print error message if execve fails
-	return 0;
+	void	*p;
+
+	p = malloc(size * nmemb);
+	if (p)
+		ft_bzero(p, nmemb * size);
+	return (p);
 }

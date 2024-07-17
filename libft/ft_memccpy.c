@@ -1,21 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   ft_memccpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/16 13:00:21 by marsoare          #+#    #+#             */
-/*   Updated: 2024/07/16 17:54:56 by marsoare         ###   ########.fr       */
+/*   Created: 2024/02/22 13:57:26 by marsoare          #+#    #+#             */
+/*   Updated: 2024/02/22 14:11:35 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-int main()
+void	*ft_memccpy(void *dest, const void *src, int c, size_t n)
 {
-	char	*argv[] =  {"cat", "./infile", NULL};
-	if (execve("/bin/cat", argv, NULL) == -1)
-		perror("execve"); // Print error message if execve fails
-	return 0;
+	char	*d;
+	char	*s;
+
+	d = (char *)dest;
+	s = (char *)src;
+	while (n > 0)
+	{
+		*d = *s;
+		if (*s == c)
+			break ;
+		s++;
+		d++;
+		n--;
+	}
+	return (d);
 }

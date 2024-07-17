@@ -1,21 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/16 13:00:21 by marsoare          #+#    #+#             */
-/*   Updated: 2024/07/16 17:54:56 by marsoare         ###   ########.fr       */
+/*   Created: 2024/04/17 12:19:35 by marsoare          #+#    #+#             */
+/*   Updated: 2024/04/17 12:33:38 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-int main()
+char	*ft_strdup(const char *s)
 {
-	char	*argv[] =  {"cat", "./infile", NULL};
-	if (execve("/bin/cat", argv, NULL) == -1)
-		perror("execve"); // Print error message if execve fails
-	return 0;
+	char	*dup;
+	size_t	i;
+
+	dup = (char *)malloc(sizeof(char) * (ft_strlen(s) + 1));
+	if (!dup)
+		return (NULL);
+	i = 0;
+	while (i < ft_strlen(s))
+	{
+		dup[i] = s[i];
+		i++;
+	}
+	dup[i] = 0;
+	return (dup);
 }

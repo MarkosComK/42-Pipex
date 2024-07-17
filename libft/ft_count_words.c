@@ -1,21 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   ft_count_words.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/16 13:00:21 by marsoare          #+#    #+#             */
-/*   Updated: 2024/07/16 17:54:56 by marsoare         ###   ########.fr       */
+/*   Created: 2024/04/25 23:40:31 by marsoare          #+#    #+#             */
+/*   Updated: 2024/04/25 23:43:07 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-int main()
+int	ft_count_words(char const *str, const char delim)
 {
-	char	*argv[] =  {"cat", "./infile", NULL};
-	if (execve("/bin/cat", argv, NULL) == -1)
-		perror("execve"); // Print error message if execve fails
-	return 0;
+	int	count;
+	int	x;
+	int	i;
+
+	count = 0;
+	x = 0;
+	i = 0;
+	while (str[i] == delim)
+		i++;
+	while (str[i])
+	{
+		if (str[i] != delim && x == 0)
+		{
+			count++;
+			x = 1;
+		}
+		else if (str[i] == delim)
+		{
+			x = 0;
+		}
+		i++;
+	}
+	return (count);
 }

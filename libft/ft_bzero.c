@@ -1,21 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/16 13:00:21 by marsoare          #+#    #+#             */
-/*   Updated: 2024/07/16 17:54:56 by marsoare         ###   ########.fr       */
+/*   Created: 2024/02/18 10:50:30 by marsoare          #+#    #+#             */
+/*   Updated: 2024/02/21 13:24:28 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-int main()
+void	ft_bzero(void *s, size_t n)
 {
-	char	*argv[] =  {"cat", "./infile", NULL};
-	if (execve("/bin/cat", argv, NULL) == -1)
-		perror("execve"); // Print error message if execve fails
-	return 0;
+	ft_memset(s, 0, n);
 }
+/*
+#include <stdio.h>
+int	main(void)
+{
+	char	str[7] = "Markos";
+
+	ft_bzero(str+1, 3*sizeof(char));
+	printf("string after ft_bzero(): %s\n", str);
+	int i = 0;
+	while (i < 6)
+	{
+		write(1, &str[i], 1);
+		i++;
+	}
+	return (0);
+}
+*/

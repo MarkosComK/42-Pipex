@@ -1,21 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/16 13:00:21 by marsoare          #+#    #+#             */
-/*   Updated: 2024/07/16 17:54:56 by marsoare         ###   ########.fr       */
+/*   Created: 2024/04/12 14:39:50 by marsoare          #+#    #+#             */
+/*   Updated: 2024/04/12 16:03:45 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-int main()
+size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
-	char	*argv[] =  {"cat", "./infile", NULL};
-	if (execve("/bin/cat", argv, NULL) == -1)
-		perror("execve"); // Print error message if execve fails
-	return 0;
+	size_t	i;
+	size_t	c;
+	size_t	start_len;
+
+	i = ft_strlen(dst);
+	c = 0;
+	start_len = ft_strlen(dst);
+	if (size == 0)
+		return (ft_strlen(src));
+	if (size <= i)
+		return (size + ft_strlen(src));
+	while (src[c] && i < size - 1)
+	{
+		dst[i] = src[c];
+		i++;
+		c++;
+	}
+	dst[i] = 0;
+	return (start_len + ft_strlen(src));
 }

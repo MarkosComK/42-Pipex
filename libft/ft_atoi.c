@@ -1,21 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/16 13:00:21 by marsoare          #+#    #+#             */
-/*   Updated: 2024/07/16 17:54:56 by marsoare         ###   ########.fr       */
+/*   Created: 2024/04/10 14:46:18 by marsoare          #+#    #+#             */
+/*   Updated: 2024/04/14 21:36:51 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-int main()
+int	ft_atoi(const char *ptr)
 {
-	char	*argv[] =  {"cat", "./infile", NULL};
-	if (execve("/bin/cat", argv, NULL) == -1)
-		perror("execve"); // Print error message if execve fails
-	return 0;
+	int	result;
+	int	sign;
+	int	i;
+
+	result = 0;
+	sign = 1;
+	i = 0;
+	while ((ptr[i] >= '\t' && ptr[i] <= '\r') || ptr[i] == ' ')
+	{
+		i++;
+	}
+	if (ptr[i] == '-' || ptr[i] == '+')
+	{
+		if (ptr[i] == '-')
+			sign = -1;
+		i++;
+	}
+	while (ptr[i] && ptr[i] >= 48 && ptr[i] <= 57)
+	{
+		result = result * 10 + ptr[i] - 48;
+		i++;
+	}
+	return (result * sign);
 }

@@ -1,21 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/16 13:00:21 by marsoare          #+#    #+#             */
-/*   Updated: 2024/07/16 17:54:56 by marsoare         ###   ########.fr       */
+/*   Created: 2024/04/28 14:30:52 by marsoare          #+#    #+#             */
+/*   Updated: 2024/04/28 14:44:19 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-int main()
+int	ft_putnbr(int n)
 {
-	char	*argv[] =  {"cat", "./infile", NULL};
-	if (execve("/bin/cat", argv, NULL) == -1)
-		perror("execve"); // Print error message if execve fails
-	return 0;
+	long	nb;
+	int		count;
+
+	nb = n;
+	count = 0;
+	if (nb < 0)
+	{
+		count += ft_putchar('-');
+		nb = nb * -1;
+	}
+	if (nb > 9)
+	{
+		count += ft_putnbr(nb / 10);
+		count += ft_putnbr(nb % 10);
+	}
+	else
+		count += ft_putchar(nb + 48);
+	return (count);
 }
