@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:00:21 by marsoare          #+#    #+#             */
-/*   Updated: 2024/07/24 15:46:16 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/07/24 15:53:01 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 
 void	cmd1_execute(char **av, int *pipe_fds)
 {
+	int	fd;
+	fd = open(av[1], O_RDONLY);
+	dup2(fd, STDIN_FILENO);
+	dup2(pipe_fds[0], STDOUT_FILENO);
+	execute();
 
 }
 
