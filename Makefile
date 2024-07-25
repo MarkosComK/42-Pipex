@@ -8,7 +8,7 @@ PURPLE = $(shell printf "\33[35m")
 TITLE = $(shell printf "\33[32;40m")
 
 NAME = pipex
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -g
 SRCS = pipex.c 
 OBJS = $(SRCS:.c=.o)
 LIBFT = ./libft/libft.a
