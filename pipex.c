@@ -6,31 +6,11 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:00:21 by marsoare          #+#    #+#             */
-/*   Updated: 2024/07/25 13:43:16 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/07/25 19:57:47 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-void	free_tab(char **tab)
-{
-	size_t	i;
-	
-	i = 0;
-	while(tab[i])
-	{
-		free(tab[i++]);
-	}
-	free(tab);
-}
-
-void	error_msg(char *str)
-{
-	ft_putstr_fd("\33[31m", 2);
-	ft_putstr_fd(str, 2);
-	ft_putchar_fd('\n', 2);
-	ft_putstr_fd("\33[0m", 2);
-}
 
 void	execute(char *cmd)
 {
@@ -76,11 +56,11 @@ int main(int ac, char **av)
 	pid_t	pid;
 
 	if (ac != 5)
-		perror("Incorrect number of args");
+		error_msg("Incorrect number of args");
 	if (pipe(pipe_files) == -1)
-		perror("error in pipe");
+		error_msg("error in pipe");
 	if ((pid = fork()) == -1)
-		perror("error in fork");
+		error_msg("error in fork");
 	if (!pid)
 		cmd1_execute(av, pipe_files);
 	if (pid)
