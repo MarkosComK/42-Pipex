@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:00:21 by marsoare          #+#    #+#             */
-/*   Updated: 2024/07/25 13:41:12 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/07/25 13:43:16 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,10 @@ void	free_tab(char **tab)
 
 void	error_msg(char *str)
 {
-	ft_putstr_fd(str, 2);
 	ft_putstr_fd("\33[31m", 2);
+	ft_putstr_fd(str, 2);
 	ft_putchar_fd('\n', 2);
+	ft_putstr_fd("\33[0m", 2);
 }
 
 void	execute(char *cmd)
