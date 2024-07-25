@@ -6,11 +6,23 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:00:21 by marsoare          #+#    #+#             */
-/*   Updated: 2024/07/25 13:37:37 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/07/25 13:41:12 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+void	free_tab(char **tab)
+{
+	size_t	i;
+	
+	i = 0;
+	while(tab[i])
+	{
+		free(tab[i++]);
+	}
+	free(tab);
+}
 
 void	error_msg(char *str)
 {
@@ -30,6 +42,8 @@ void	execute(char *cmd)
 	{
 		error_msg("Command not found");
 		error_msg(cmd);
+		free_tab(split_cmd);
+		free(path);
 	}
 }
 
