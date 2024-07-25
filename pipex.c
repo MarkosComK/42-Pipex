@@ -6,11 +6,18 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:00:21 by marsoare          #+#    #+#             */
-/*   Updated: 2024/07/25 11:29:33 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/07/25 13:37:37 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+void	error_msg(char *str)
+{
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd("\33[31m", 2);
+	ft_putchar_fd('\n', 2);
+}
 
 void	execute(char *cmd)
 {
@@ -19,7 +26,11 @@ void	execute(char *cmd)
 	
 	split_cmd = ft_split(cmd, ' ');
 	path = ft_strjoin("/bin/", split_cmd[0]);
-	execve(path, split_cmd, NULL);
+	if (execve(path, split_cmd, NULL) == -1)
+	{
+		error_msg("Command not found");
+		error_msg(cmd);
+	}
 }
 
 void	cmd1_execute(char **av, int *pipe_fds)
