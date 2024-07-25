@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:26:02 by marsoare          #+#    #+#             */
-/*   Updated: 2024/07/25 19:41:34 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/07/25 20:21:04 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,8 @@
 
 void	free_tab(char **tab);
 void	error_msg(char *str);
+
+char	*get_path(char *cmd, char **env);
+char	*my_getenv(char *name, char **env);
 
 #endif
