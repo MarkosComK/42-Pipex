@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:00:21 by marsoare          #+#    #+#             */
-/*   Updated: 2024/07/30 12:22:26 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/07/30 12:34:29 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	execute(char *cmd, char **env)
 		error_msg("Command not found");
 		error_msg(cmd);
 		free_tab(split_cmd);
-		free(path);
+		exit(0);
 	}
 }
 
@@ -56,7 +56,10 @@ int main(int ac, char **av, char **env)
 	pid_t	pid;
 
 	if (ac != 5)
+	{
 		error_msg("Incorrect number of args");
+		exit(0);
+	}
 	if (pipe(pipe_files) == -1)
 		error_msg("error in pipe");
 	if ((pid = fork()) == -1)

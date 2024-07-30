@@ -30,7 +30,6 @@ void	error_msg(char *str)
 	ft_putstr_fd(str, 2);
 	ft_putchar_fd('\n', 2);
 	ft_putstr_fd("\33[0m", 2);
-	exit(1);
 }
 char	*filterenv(char **env)
 {
@@ -46,6 +45,7 @@ char	*get_path(char *cmd, char **env)
 {
 	char	**split_cmd;
 	char	**paths;
+	char	*tmp_exec;
 	char	*exec;
 	int		i;
 
@@ -54,8 +54,9 @@ char	*get_path(char *cmd, char **env)
 	split_cmd = ft_split(cmd, ' ');
 	while (paths[i])
 	{
-		exec = ft_strjoin(paths[i], "/");
-		exec = ft_strjoin(exec, split_cmd[0]);
+		tmp_exec = ft_strjoin(paths[i], "/");
+		exec = ft_strjoin(tmp_exec, split_cmd[0]);
+		free(tmp_exec);
 		if (access(exec, F_OK | X_OK) == 0)
 		{
 			free_tab(split_cmd);
