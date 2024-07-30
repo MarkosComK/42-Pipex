@@ -18,7 +18,11 @@ void	execute(char *cmd, char **env)
 	char	*path;
 
 	split_cmd = ft_split(cmd, ' ');
-	path = get_path(split_cmd[0], env);
+	path = get_path(split_cmd[0], env);	for(int k = 0; paths[k]; k++){
+		write(2, paths[k], ft_strlen(paths[k]));
+		write(2, "\n", 1);
+	}
+	for(int k = 0; path[k]; k+)
 	if (execve(path, split_cmd, env) == -1)
 	{
 		error_msg("Command not found");
