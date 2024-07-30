@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:00:21 by marsoare          #+#    #+#             */
-/*   Updated: 2024/07/25 20:31:08 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/07/30 12:00:27 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ int main(int ac, char **av, char **env)
 	(void) ac;
 	int		pipe_files[2];
 	pid_t	pid;
+	
+	get_path("ls", env);
 
 	if (ac != 5)
 		error_msg("Incorrect number of args");
