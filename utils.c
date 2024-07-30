@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 19:29:46 by marsoare          #+#    #+#             */
-/*   Updated: 2024/07/30 10:56:02 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/07/30 11:33:11 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,30 +38,28 @@ char	*filterenv(char *name, char **env)
 	i = 0;
 	while (ft_strncmp(name, env[i], 4))
 		i++;
-	write(2, env[i], ft_strlen(env[i]));
-	return (NULL);
+	return (env[i + 5]);
 }
 
 char	*get_path(char *cmd, char **env)
 {
+	char	**split_cmd;
 	char	**paths;
+	char	*path;
 	int		i;
 
 	paths = ft_split(filterenv("PATH", env), ':');
 	i = 0;
-	//char *path = allpath[0];
-	/*
-	while(allpath++)
-		write(2, *allpath, ft_strlen(*allpath));
-	s_cmd = ft_split(cmd, ' ');
-	*/
-	/*
+	char *path = paths[0];
+	while(paths++)
+		write(2, *paths, ft_strlen(paths));
+	split_cmd = ft_split(cmd, ' ');
 	while (paths[i])
 	{
 		//check somehow each path to find if the command are in it
 		if (access(exec, F_OK | X_OK) == 0)
 		{
-			free_tab(s_cmd);
+			free_tab(split_cmd);
 			return (exec); //if find the cmd
 		}
 		free(exec);
