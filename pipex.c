@@ -32,7 +32,7 @@ void	cmd1_execute(char **av, int *pipe_fds, char **env)
 {
 	int	fd;
 
-	fd = open(av[1], O_RDONLY, 0777);
+	fd = open(av[1], O_RDONLY, 0444);
 	dup2(fd, STDIN_FILENO);
 	dup2(pipe_fds[1], STDOUT_FILENO);
 	close(pipe_fds[0]);
@@ -43,7 +43,8 @@ void	cmd2_execute(char **av, int *pipe_fds, char **env)
 {
 	int	fd;
 
-	fd = open(av[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	wait(NULL);
+	fd = open(av[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	dup2(pipe_fds[0], STDIN_FILENO);
 	dup2(fd, STDOUT_FILENO);
 	close(pipe_fds[1]);

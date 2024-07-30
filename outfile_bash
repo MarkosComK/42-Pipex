@@ -1,0 +1,14 @@
+total 72$
+-rw-r--r-- 1 marsoare 2024_porto    16 Jul 30 13:39 infile$
+drwxr-xr-x 4 marsoare 2024_porto  4096 Jul 30 13:12 libft$
+-rw-r--r-- 1 marsoare 2024_porto  1803 Jul 25 19:43 Makefile$
+-rw-r--r-- 1 marsoare 2024_porto     0 Jul 30 14:19 outfile$
+-rw-r--r-- 1 marsoare 2024_porto     0 Jul 30 14:20 outfile_bash$
+-rw-r--r-- 1 marsoare 2024_porto     0 Jul 30 14:20 outfile_pipex$
+-rwxr-xr-x 1 marsoare 2024_porto 25896 Jul 30 14:20 pipex$
+-rw-r--r-- 1 marsoare 2024_porto  2005 Jul 30 14:19 pipex.c$
+-rw-r--r-- 1 marsoare 2024_porto  1200 Jul 25 20:21 pipex.h$
+drwxr-xr-x 6 marsoare 2024_porto   104 Jul 30 13:37 pipexMedic$
+-rw-r--r-- 1 marsoare 2024_porto  5776 Jul 30 14:20 pipex.o$
+-rw-r--r-- 1 marsoare 2024_porto  1758 Jul 30 14:19 utils.c$
+-rw-r--r-- 1 marsoare 2024_porto  5032 Jul 30 14:19 utils.o$
