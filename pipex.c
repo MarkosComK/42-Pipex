@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:00:21 by marsoare          #+#    #+#             */
-/*   Updated: 2024/07/30 12:00:27 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/07/30 12:22:26 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,8 @@ void	execute(char *cmd, char **env)
 	char	*path;
 	
 	split_cmd = ft_split(cmd, ' ');
-	//path = ft_strjoin("/bin/", split_cmd[0]);
 	path = get_path(split_cmd[0], env);
-	if (execve(path, split_cmd, NULL) == -1)
+	if (execve(path, split_cmd, env) == -1)
 	{
 		error_msg("Command not found");
 		error_msg(cmd);
@@ -55,8 +54,6 @@ int main(int ac, char **av, char **env)
 	(void) ac;
 	int		pipe_files[2];
 	pid_t	pid;
-	
-	get_path("ls", env);
 
 	if (ac != 5)
 		error_msg("Incorrect number of args");
