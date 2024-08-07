@@ -18,11 +18,7 @@ void	execute(char *cmd, char **env)
 	char	*path;
 
 	split_cmd = ft_split(cmd, ' ');
-	path = get_path(split_cmd[0], env);	for(int k = 0; paths[k]; k++){
-		write(2, paths[k], ft_strlen(paths[k]));
-		write(2, "\n", 1);
-	}
-	for(int k = 0; path[k]; k+)
+	path = get_path(split_cmd[0], env);
 	if (execve(path, split_cmd, env) == -1)
 	{
 		error_msg("Command not found");
@@ -70,8 +66,8 @@ int	main(int ac, char **av, char **env)
 		error_msg("error in pipe");
 	if (pid == -1)
 		error_msg("error in fork");
-	if (!pid)
+	if (pid == 0)
 		cmd1_execute(av, pipe_files, env);
-	if (pid)
-		cmd2_execute(av, pipe_files, env);
+	waitpid(pid, NULL, 0);
+	cmd2_execute(av, pipe_files, env);
 }
