@@ -6,68 +6,63 @@
 /*   By: marsoare <marsoare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:00:21 by marsoare          #+#    #+#             */
-/*   Updated: 2024/07/30 13:03:04 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/08/07 11:10:16 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	execute(char *cmd, char **env)
+void	exec(char *cmd, char **env)
 {
-	char	**split_cmd;
+	char	**s_cmd;
 	char	*path;
 
-	split_cmd = ft_split(cmd, ' ');
-	path = get_path(split_cmd[0], env);
-	if (execve(path, split_cmd, env) == -1)
+	s_cmd = ft_split(cmd, ' ');
+	path = get_path(s_cmd[0], env);
+	if (execve(path, s_cmd, env) == -1)
 	{
-		error_msg("Command not found");
-		error_msg(cmd);
-		free_tab(split_cmd);
+		ft_putstr_fd("pipex: command not found: ", 2);
+		ft_putendl_fd(s_cmd[0], 2);
+		free_tab(s_cmd);
 		exit(0);
 	}
 }
 
-void	cmd1_execute(char **av, int *pipe_fds, char **env)
+void	child(char **av, int *p_fd, char **env)
 {
-	int	fd;
+	int		fd;
 
-	fd = open(av[1], O_RDONLY, 0444);
-	dup2(fd, STDIN_FILENO);
-	dup2(pipe_fds[1], STDOUT_FILENO);
-	close(pipe_fds[0]);
-	execute(av[2], env);
+	fd = open_file(av[1], 0);
+	dup2(fd, 0);
+	dup2(p_fd[1], 1);
+	close(p_fd[0]);
+	exec(av[2], env);
 }
 
-void	cmd2_execute(char **av, int *pipe_fds, char **env)
+void	parent(char **av, int *p_fd, char **env)
 {
-	int	fd;
+	int		fd;
 
-	wait(NULL);
-	fd = open(av[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	dup2(pipe_fds[0], STDIN_FILENO);
-	dup2(fd, STDOUT_FILENO);
-	close(pipe_fds[1]);
-	execute(av[3], env);
+	fd = open_file(av[4], 1);
+	dup2(fd, 1);
+	dup2(p_fd[0], 0);
+	close(p_fd[1]);
+	exec(av[3], env);
 }
 
 int	main(int ac, char **av, char **env)
 {
-	int		pipe_files[2];
+	int		p_fd[2];
 	pid_t	pid;
 
-	pid = fork();
 	if (ac != 5)
-	{
-		error_msg("Incorrect number of args");
-		exit(0);
-	}
-	if (pipe(pipe_files) == -1)
-		error_msg("error in pipe");
+		error_msg(1);
+	if (pipe(p_fd) == -1)
+		exit(-1);
+	pid = fork();
 	if (pid == -1)
-		error_msg("error in fork");
-	if (pid == 0)
-		cmd1_execute(av, pipe_files, env);
-	waitpid(pid, NULL, 0);
-	cmd2_execute(av, pipe_files, env);
+		exit(-1);
+	if (!pid)
+		child(av, p_fd, env);
+	parent(av, p_fd, env);
 }

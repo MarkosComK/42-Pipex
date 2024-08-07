@@ -6,11 +6,31 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 19:29:46 by marsoare          #+#    #+#             */
-/*   Updated: 2024/07/30 13:04:37 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/08/07 11:10:02 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+void	error_msg(int n_exit)
+{
+	if (n_exit == 1)
+		ft_putstr_fd("./pipex infile cmd cmd outfile\n", 2);
+	exit(0);
+}
+
+int	open_file(char *file, int in_or_out)
+{
+	int	ret;
+
+	if (in_or_out == 0)
+		ret = open(file, O_RDONLY, 0777);
+	if (in_or_out == 1)
+		ret = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	if (ret == -1)
+		exit(0);
+	return (ret);
+}
 
 void	free_tab(char **tab)
 {
@@ -19,39 +39,32 @@ void	free_tab(char **tab)
 	i = 0;
 	while (tab[i])
 	{
-		free(tab[i++]);
+		free(tab[i]);
+		i++;
 	}
 	free(tab);
 }
 
-void	error_msg(char *str)
+char	*ft_filterenv(char **env)
 {
-	ft_putstr_fd("\33[31m", 2);
-	ft_putstr_fd(str, 2);
-	ft_putchar_fd('\n', 2);
-	ft_putstr_fd("\33[0m", 2);
-}
-
-char	*filterenv(char **env)
-{
-	int		i;
+	int	i;
 
 	i = 0;
-	while (ft_strncmp("PATH", env[i], 4))
+	while(ft_strncmp("PATH", env[i], 4))
 		i++;
 	return (&env[i][5]);
 }
 
 char	*get_path(char *cmd, char **env)
 {
-	char	**split_cmd;
+	int		i;
+	char	*exec;
 	char	**paths;
 	char	*tmp_exec;
-	char	*exec;
-	int		i;
+	char	**split_cmd;
 
-	paths = ft_split(filterenv(env), ':');
 	i = 0;
+	paths = ft_split(ft_filterenv(env), ':');
 	split_cmd = ft_split(cmd, ' ');
 	while (paths[i])
 	{
@@ -70,3 +83,4 @@ char	*get_path(char *cmd, char **env)
 	free_tab(split_cmd);
 	return (cmd);
 }
+
