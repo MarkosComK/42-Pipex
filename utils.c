@@ -50,7 +50,7 @@ char	*ft_filterenv(char **env)
 	int	i;
 
 	i = 0;
-	while(ft_strncmp("PATH", env[i], 4))
+	while (ft_strncmp("PATH", env[i], 4))
 		i++;
 	return (&env[i][5]);
 }
@@ -83,4 +83,3 @@ char	*get_path(char *cmd, char **env)
 	free_tab(split_cmd);
 	return (cmd);
 }
-

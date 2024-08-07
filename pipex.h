@@ -21,10 +21,8 @@
 
 void	free_tab(char **tab);
 void	error_msg(int n_exit);
-
 char	*get_path(char *cmd, char **env);
 char	*my_getenv(char *name, char **env);
 int		open_file(char *file, int in_or_out);
-
 
 #endif
