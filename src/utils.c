@@ -12,11 +12,23 @@
 
 #include "../includes/pipex.h"
 
-void	error_msg(int n_exit)
+void	error_msg(char	*msg, int *fd, int file, int exit_code)
 {
-	if (n_exit == 1)
-		ft_putstr_fd("./pipex infile cmd cmd outfile\n", 2);
-	exit(0);
+	int	len;
+
+	if (msg)
+	{
+		len = ft_strlen(msg);
+		write(2, msg, len);
+	}
+	if (fd)
+	{
+		close(fd[0]);
+		close(fd[1]);
+	}
+	if (file >= 0)
+		close(file);
+	exit(exit_code);
 }
 
 int	open_file(char *file, int in_or_out)

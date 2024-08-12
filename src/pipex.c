@@ -55,13 +55,11 @@ int	main(int ac, char **av, char **env)
 	int		p_fd[2];
 	pid_t	pid;
 
-	if (ac != 5)
-		error_msg(1);
-	if (pipe(p_fd) == -1)
-		exit(-1);
+	if (ac != 5 || pipe(p_fd) == -1)
+		error_msg("Invalid arguments number!\n", NULL, -1, EXIT_FAILURE);
 	pid = fork();
 	if (pid == -1)
-		exit(-1);
+		error_msg("Error calling fork!\n", p_fd, -1, EXIT_FAILURE);
 	if (!pid)
 		child(av, p_fd, env);
 	parent(av, p_fd, env);
