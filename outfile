@@ -1,11 +1,8 @@
-total 72$
--rw-rw-r-- 1 markos markos    16 jul 31 17:19 infile$
-drwxrwxr-x 4 markos markos  4096 ago  7 11:10 libft$
--rw-rw-r-- 1 markos markos  1803 jul 31 17:37 Makefile$
--rw-r--r-- 1 markos markos     0 ago  7 11:14 outfile$
--rwxrwxr-x 1 markos markos 30440 ago  7 11:13 pipex$
--rw-rw-r-- 1 markos markos  1747 ago  7 11:12 pipex.c$
--rw-rw-r-- 1 markos markos  1246 ago  7 11:13 pipex.h$
--rw-rw-r-- 1 markos markos  7704 ago  7 11:13 pipex.o$
--rw-rw-r-- 1 markos markos  1980 ago  7 11:11 utils.c$
--rw-rw-r-- 1 markos markos  7456 ago  7 11:13 utils.o$
+total 44$
+drwxr-xr-x 2 marsoare 2024_porto    21 Aug 12 11:08 includes$
+-rw-r--r-- 1 marsoare 2024_porto    16 Aug 12 10:57 infile$
+drwxr-xr-x 4 marsoare 2024_porto  4096 Aug 12 11:08 libft$
+-rw-r--r-- 1 marsoare 2024_porto  1811 Aug 12 11:07 Makefile$
+-rw-r--r-- 1 marsoare 2024_porto     0 Aug 12 11:08 outfile$
+-rwxr-xr-x 1 marsoare 2024_porto 26408 Aug 12 11:08 pipex$
+drwxr-xr-x 2 marsoare 2024_porto    66 Aug 12 11:08 src$

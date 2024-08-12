@@ -9,7 +9,7 @@ TITLE = $(shell printf "\33[32;40m")
 
 NAME = pipex
 FLAGS = -Wall -Wextra -Werror -g
-SRCS = pipex.c utils.c
+SRCS = src/pipex.c src/utils.c
 OBJS = $(SRCS:.c=.o)
 LIBFT = ./libft/libft.a
 

@@ -17,7 +17,7 @@
 # include <stdio.h>
 # include <sys/wait.h>
 # include <errno.h>
-# include "./libft/libft.h"
+# include "../libft/libft.h"
 
 void	free_tab(char **tab);
 void	error_msg(int n_exit);
