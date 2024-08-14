@@ -12,81 +12,49 @@
 
 #include "../includes/bonus.h"
 
-int	**create_pipes(int pipe_number)
+void	redir (char *cmd, char **env, int fdin)
 {
-	int	**fd;
-	int	i;
+	pid_t	pid;
+	int		pipefd[2];
 
-	fd = ft_calloc(sizeof(*fd), pipe_number + 1);
-	if (fd == NULL)
-		error_msg("Error allocating memory for pipes!\n", NULL, NULL, 1);
-	i = 0;
-	while (i < pipe_number)
+	pipe(pipefd);
+	pid = fork();
+	if (pid)
 	{
-		fd[i] = ft_calloc(sizeof(*fd[i]), 2);
-		if (fd[i] == NULL)
-		{
-			while (i < pipe_number)
-				free(fd[i++]);
-			free_pipes(fd);
-			error_msg("Error creating pipes!\n", NULL, NULL, 1);
-		}
-		i++;
+		close(pipefd[1]);
+		dup2(pipefd[0], STDIN);
+		waitpid(pid, NULL, 0);
 	}
-	i = 0;
-	while (i < pipe_number)
-		pipe(fd[i++]);
-	return (fd);
+	else
+	{
+		close(pipefd[0]);
+		dup2(pipefd[1], STDOUT);
+		if (fdin == STDIN)
+			exit(1);
+		else
+			exec(cmd, env);
+	}
 }
 
-void	input(char **argv, char **envp, int **fd)
+int	main (int ac, char **av, char **env)
 {
-	int		infile;
-	char	*path;
-	char	**cmd;
-
-	if (ft_memcmp(argv[1], "here_doc", 8) == 0)
-		here_doc_input(argv[2], fd);
-	infile = open(argv[1], O_RDONLY);
-	if (infile == -1)
-		error_msg("Error opening infile in input!\n", fd, NULL, 1);
-	if (dup2(infile, 0) == -1 || dup2(fd[0][1], 1) == -1)
-		error_msg("Error calling dup2 in output!\n", fd, NULL, 1);
-	close(infile);
-	close_pipes(fd);
-	path = ft_filterenv(envp);
-	if (path == NULL)
-		error_msg("Error calling ft_strcut in input!\n", NULL, NULL, 1);
-	path = get_path(path, envp);
-	cmd = get_cmd(argv[2]);
-	if (cmd == NULL)
-		error_msg("Error calling get_cmd in input!\n", NULL, path, 1);
-	if (execve(path, cmd, envp) == -1)
-		panic_free("Error calling execve in input!\n", cmd, path, 1);
-	panic_free("Command not found!\n", cmd, path, 127);
-}
-
-int	main(int argc, char *argv[], char *envp[])
-{
-	int	**fd;
-	int	pid;
+	int	fdin;
+	int	fdout;
 	int	i;
 
-	if (argc < 5)
-		error_msg("Invalid number of arguments!\n", NULL, NULL, 1);
-	fd = creat_pipes(argc - 4);
-	i = 0;
-	while (i < argc - 4)
+	i = 3;
+	if (ac >= 5)
 	{
-		pid = fork();
-		if (pid == 0)
-		{
-			if (i == 0)
-				input(argv, envp, fd);
-			else
-				execute(i, argv, envp, fd);
-		}
-		i++;
+		fdin = open_file(av[1], INFILE);
+		fdout = open_file(av[ac - 1], OUTFILE);
+		dup2(fdin, STDIN);
+		dup2(fdout, STDOUT);
+		redir(av[2], env, fdin);
+		while (i < ac - 2)
+			redir(av[i++], env, 1);
+		exec(av[i], env);
 	}
-	output(argc, argv, envp, fd);
+	else
+		write(STDERR, "Invalid number of arguments.\n", 29);
+	return (1);
 }

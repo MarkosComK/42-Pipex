@@ -12,6 +12,19 @@
 
 #include "../includes/bonus.h"
 
+int	open_file(char *file, int in_or_out)
+{
+	int	ret;
+
+	if (in_or_out == 0)
+		ret = open(file, O_RDONLY, 0777);
+	if (in_or_out == 1)
+		ret = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	if (ret == -1)
+		exit(0);
+	return (ret);
+}
+
 void	free_tab(char **tab)
 {
 	size_t	i;
@@ -64,29 +77,6 @@ char	*get_path(char *cmd, char **env)
 	return (cmd);
 }
 
-void	close_pipes(int **fd)
-{
-	int	i;
-
-	i = 0;
-	while (fd[i])
-	{
-		close(fd[i][0]);
-		close(fd[i][1]);
-		i++;
-	}
-}
-
-void	free_pipes(int	**fd)
-{
-	int	i;
-
-	i = -1;
-	while (fd[++i])
-		free(fd[i]);
-	free(fd);
-}
-
 void	error_msg(char *msg, int **fd, char *str, int exit_status)
 {
 	int	len;
@@ -105,4 +95,3 @@ void	error_msg(char *msg, int **fd, char *str, int exit_status)
 	}
 	exit(exit_status);
 }
-
