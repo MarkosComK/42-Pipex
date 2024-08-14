@@ -10,7 +10,9 @@ TITLE = $(shell printf "\33[32;40m")
 NAME = pipex
 FLAGS = -Wall -Wextra -Werror -g
 SRCS = src/pipex.c src/utils.c
+SRCS_BONUS = bonus/pipex_bonus.c bonus/utils_bonus.c
 OBJS = $(SRCS:.c=.o)
+OBJS_BONUS = $(SRCS_BONUS:.c=.o)
 LIBFT = ./libft/libft.a
 
 all: $(NAME) libft 
@@ -35,7 +37,8 @@ $(LIBFT):
 	@echo
 	@echo
 
-bonus: $(NAME)
+bonus: $(OBJS_BONUS)
+	$(FLAGS) $(NAME) $(OBJS_BONUS)
 
 fclean: clean
 	@rm -f $(NAME)
