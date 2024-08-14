@@ -19,6 +19,10 @@
 # include <errno.h>
 # include "../libft/libft.h"
 
+# define STDIN 0
+# define STDOUT 1
+# define STDERR 2
+
 # define INFILE 0
 # define OUTFILE 1
 
