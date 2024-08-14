@@ -22,7 +22,7 @@ void	exec(char *cmd, char **env)
 	if (execve(path, s_cmd, env) == -1)
 	{
 		ft_putstr_fd("pipex: command not found: ", 2);
-		ft_putendl_fd(s_cmd[0], 2);
+		ft_putendl_fd(s_cmd[0], STDERR);
 		free_tab(s_cmd);
 		exit(0);
 	}
@@ -32,9 +32,9 @@ void	child(char **av, int *p_fd, char **env)
 {
 	int		fd;
 
-	fd = open_file(av[1], 0);
-	dup2(fd, 0);
-	dup2(p_fd[1], 1);
+	fd = open_file(av[1], INFILE);
+	dup2(fd, STDIN);
+	dup2(p_fd[1], STDOUT);
 	close(p_fd[0]);
 	exec(av[2], env);
 }
@@ -43,9 +43,9 @@ void	parent(char **av, int *p_fd, char **env)
 {
 	int		fd;
 
-	fd = open_file(av[4], 1);
-	dup2(fd, 1);
-	dup2(p_fd[0], 0);
+	fd = open_file(av[4], OUTFILE);
+	dup2(fd, STDOUT);
+	dup2(p_fd[0], STDIN);
 	close(p_fd[1]);
 	exec(av[3], env);
 }
