@@ -19,6 +19,13 @@
 # include <sys/wait.h>
 # include "../libft/libft.h"
 
+# define STDIN 0
+# define STDOUT 1
+# define STDERR 2
+
+# define INFILE 0
+# define OUTFILE 1
+
 void	close_pipes(int **fd);
 void	free_pipes(int **fd);
 void	error_msg(char *msg, int **fd, char *str, int exit_status);
