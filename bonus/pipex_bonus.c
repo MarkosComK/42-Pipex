@@ -12,6 +12,22 @@
 
 #include "../includes/bonus.h"
 
+void	exec(char *cmd, char **env)
+{
+	char	**s_cmd;
+	char	*path;
+
+	s_cmd = ft_split(cmd, ' ');
+	path = get_path(s_cmd[0], env);
+	if (execve(path, s_cmd, env) == -1)
+	{
+		ft_putstr_fd("pipex: command not found: ", 2);
+		ft_putendl_fd(s_cmd[0], STDERR);
+		free_tab(s_cmd);
+		exit(0);
+	}
+}
+
 void	redir (char *cmd, char **env, int fdin)
 {
 	pid_t	pid;
