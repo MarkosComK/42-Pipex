@@ -19,6 +19,9 @@
 # include <errno.h>
 # include "../libft/libft.h"
 
+# define INFILE 0
+# define OUTFILE 1
+
 void	free_tab(char **tab);
 void	error_msg(char *str, int *fd, int file, int exit_code);
 char	*get_path(char *cmd, char **env);
