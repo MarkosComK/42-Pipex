@@ -18,13 +18,17 @@ void	here_doc_input(char *limiter, int fd)
 
 	while (42)
 	{
-		line = get_next_line(0);
-		if (ft_memcmp(limiter, line, ft_strlen(line) - 1) == 0)
+		if(!(line = get_next_line(0)))
 			break ;
+		if (ft_memcmp(limiter, line, ft_strlen(line) - 1) == 0)
+		{
+			free(line);
+			break ;
+		}
 		write(fd, line, ft_strlen(line));
 		free(line);
 	}
-	free(line);
+	close(fd);
 	exit(0);
 }
 
