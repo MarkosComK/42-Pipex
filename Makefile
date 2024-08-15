@@ -37,8 +37,9 @@ $(LIBFT):
 	@echo
 	@echo
 
-bonus: $(OBJS_BONUS)
-	$(FLAGS) $(NAME) $(OBJS_BONUS)
+bonus: $(LIBFT) $(OBJS_BONUS)
+	@cp $(LIBFT) $(NAME)
+	@cc $(OBJS_BONUS) $(LIBFT) -o $(NAME)
 
 fclean: clean
 	@rm -f $(NAME)
@@ -53,6 +54,7 @@ fclean: clean
 clean:
 	@rm -rf *.o
 	@rm -rf ./srcs/*.o
+	@rm -rf ./bonus/*.o
 	@make --silent -C ./libft clean
 	@clear
 	@echo
@@ -63,4 +65,4 @@ clean:
 
 re: fclean all
 
-.PHONY: libft
+.PHONY: libft pipex
