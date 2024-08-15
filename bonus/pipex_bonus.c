@@ -130,7 +130,6 @@ int	main (int ac, char **av, char **env)
 			fdin = open_file(av[1], INFILE);
 			dup2(fdin, STDIN);
 		}
-		//redir(av[2], env, fdin);
 		while (i < ac - 2)
 			redir(av[i++], env, 1);
 		dup2(fdout, STDOUT);
