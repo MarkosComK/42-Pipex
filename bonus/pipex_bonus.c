@@ -12,32 +12,6 @@
 
 #include "../includes/bonus.h"
 
-int	gnl(char **line)
-{
-	char	*buffer;
-	int		i;
-	int		r;
-	char	c;
-
-	i = 0;
-	r = 0;
-	buffer = (char *)malloc(10000);
-	if (!buffer)
-		return (-1);
-	r = read(0, &c, 1);
-	while (r && c != '\n' && c != '\0')
-	{
-		if (c != '\n' && c != '\0')
-			buffer[i] = c;
-		i++;
-		r = read(0, &c, 1);
-	}
-	buffer[i] = '\n';
-	buffer[++i] = '\0';
-	*line = buffer;
-	free(buffer);
-	return (r);
-}
 void	here_doc(char *limiter, int ac)
 {
 	char	*line;
@@ -52,14 +26,15 @@ void	here_doc(char *limiter, int ac)
 	if (reader == 0)
 	{
 		close(fd[0]);
-		while(42)
+		while((line = get_next_line(0)))
 		{
-			line = get_next_line(0);
 			if (ft_strncmp(line, limiter, ft_strlen(limiter)) == 0)
 			{
+				free(line);
 				exit(0);
 			}
 			write(fd[1], line, ft_strlen(line));
+			free(line);
 		}
 	}
 	else
