@@ -12,7 +12,7 @@
 
 #include "../includes/bonus.h"
 
-void	here_doc_input(char *limiter, int **fd)
+void	here_doc_input(char *limiter, int fd)
 {
 	char	*line;
 
@@ -21,7 +21,7 @@ void	here_doc_input(char *limiter, int **fd)
 		line = get_next_line(0);
 		if (ft_memcmp(limiter, line, ft_strlen(line) - 1) == 0)
 			break ;
-		write(fd[0][1], line, ft_strlen(line));
+		write(fd, line, ft_strlen(line));
 		free(line);
 	}
 	free(line);
@@ -79,7 +79,7 @@ int	main (int ac, char **av, char **env)
 	{
 		fdout = open_file(av[ac - 1], OUTFILE);
 		if (ft_strncmp(av[1], "here_doc", 8) == 0)
-			write(STDERR, "here_doc", 8);
+			here_doc_input(av[2], fdout);
 		fdin = open_file(av[1], INFILE);
 		dup2(fdin, STDIN);
 		dup2(fdout, STDOUT);
