@@ -12,6 +12,22 @@
 
 #include "../includes/bonus.h"
 
+void	here_doc_input(char *limiter, int **fd)
+{
+	char	*line;
+
+	while (42)
+	{
+		line = get_next_line(0);
+		if (ft_memcmp(limiter, line, ft_strlen(line) - 1) == 0)
+			break ;
+		write(fd[0][1], line, ft_strlen(line));
+		free(line);
+	}
+	free(line);
+	exit(0);
+}
+
 void	exec(char *cmd, char **env)
 {
 	char	**s_cmd;
@@ -61,8 +77,10 @@ int	main (int ac, char **av, char **env)
 	i = 3;
 	if (ac >= 5)
 	{
-		fdin = open_file(av[1], INFILE);
 		fdout = open_file(av[ac - 1], OUTFILE);
+		if (ft_strncmp(av[1], "here_doc", 8) == 0)
+			write(STDERR, "here_doc", 8);
+		fdin = open_file(av[1], INFILE);
 		dup2(fdin, STDIN);
 		dup2(fdout, STDOUT);
 		redir(av[2], env, fdin);
