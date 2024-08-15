@@ -52,8 +52,9 @@ void	here_doc(char *limiter, int ac)
 	if (reader == 0)
 	{
 		close(fd[0]);
-		while(gnl(&line))
+		while(42)
 		{
+			line = get_next_line(0);
 			if (ft_strncmp(line, limiter, ft_strlen(limiter)) == 0)
 			{
 				exit(0);
