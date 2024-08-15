@@ -12,7 +12,7 @@
 
 #include "../includes/bonus.h"
 
-void	here_doc(char *limiter, int ac)
+void	here_doc(char *limiter)
 {
 	char	*line;
 	int		fd[2];
@@ -21,13 +21,12 @@ void	here_doc(char *limiter, int ac)
 	if (pipe(fd) == -1)
 		exit(0);
 	reader = fork();
-	if(ac < 5)
-		exit(0);
 	if (reader == 0)
 	{
 		close(fd[0]);
-		while((line = get_next_line(0)))
+		while (42)
 		{
+			line = get_next_line(0);
 			if (ft_strncmp(line, limiter, ft_strlen(limiter)) == 0)
 			{
 				free(line);
@@ -37,12 +36,9 @@ void	here_doc(char *limiter, int ac)
 			free(line);
 		}
 	}
-	else
-	{
-		close(fd[1]);
-		dup2(fd[0], STDIN_FILENO);
-		wait(NULL);
-	}
+	close(fd[1]);
+	dup2(fd[0], STDIN_FILENO);
+	wait(NULL);
 }
 
 void	exec(char *cmd, char **env)
@@ -61,7 +57,7 @@ void	exec(char *cmd, char **env)
 	}
 }
 
-void	redir (char *cmd, char **env, int fdin)
+void	redir(char *cmd, char **env, int fdin)
 {
 	pid_t	pid;
 	int		pipefd[2];
@@ -85,23 +81,23 @@ void	redir (char *cmd, char **env, int fdin)
 	}
 }
 
-int	main (int ac, char **av, char **env)
+int	main(int ac, char **av, char **env)
 {
 	int	fdin;
 	int	fdout;
 	int	i;
 
-	i = 3;
 	if (ac >= 5)
 	{
-		if(ft_strncmp(av[1], "here_doc", 8) == 0)
+		if (ft_strncmp(av[1], "here_doc", 8) == 0)
 		{
 			i = 3;
 			fdout = open_file(av[ac - 1], OUTFILE);
-			here_doc(av[2], ac);
+			here_doc(av[2]);
 		}
 		else
 		{
+			i = 2;
 			fdout = open_file(av[ac - 1], OUTFILE);
 			fdin = open_file(av[1], INFILE);
 			dup2(fdin, STDIN);
@@ -111,7 +107,5 @@ int	main (int ac, char **av, char **env)
 		dup2(fdout, STDOUT);
 		exec(av[i], env);
 	}
-	else
-		write(STDERR, "Invalid number of arguments.\n", 29);
-	return (1);
+	write(STDERR, "Invalid number of arguments.\n", 29);
 }
