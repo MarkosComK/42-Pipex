@@ -76,22 +76,3 @@ char	*get_path(char *cmd, char **env)
 	free_tab(split_cmd);
 	return (cmd);
 }
-
-void	error_msg(char *msg, int **fd, char *str, int exit_status)
-{
-	int	len;
-
-	if (fd)
-	{
-		close_pipes(fd);
-		free_pipes(fd);
-	}
-	if (str)
-		free(str);
-	if (msg)
-	{
-		len = ft_strlen(msg);
-		write(2, msg, len);
-	}
-	exit(exit_status);
-}
