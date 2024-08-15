@@ -12,24 +12,61 @@
 
 #include "../includes/bonus.h"
 
-void	here_doc_input(char *limiter, int fd)
+int	gnl(char **line)
+{
+	char	*buffer;
+	int		i;
+	int		r;
+	char	c;
+
+	i = 0;
+	r = 0;
+	buffer = (char *)malloc(10000);
+	if (!buffer)
+		return (-1);
+	r = read(0, &c, 1);
+	while (r && c != '\n' && c != '\0')
+	{
+		if (c != '\n' && c != '\0')
+			buffer[i] = c;
+		i++;
+		r = read(0, &c, 1);
+	}
+	buffer[i] = '\n';
+	buffer[++i] = '\0';
+	*line = buffer;
+	free(buffer);
+	return (r);
+}
+void	here_doc(char *limiter, int ac)
 {
 	char	*line;
+	int		fd[2];
+	pid_t	reader;
 
-	while (42)
+	if (pipe(fd) == -1)
+		exit(0);
+	reader = fork();
+	if(ac < 5)
+		exit(0);
+	if (reader == 0)
 	{
-		if(!(line = get_next_line(0)))
-			break ;
-		if (ft_memcmp(limiter, line, ft_strlen(line) - 1) == 0)
+		close(fd[0]);
+		while(gnl(&line))
 		{
-			free(line);
-			break ;
+			if (ft_strncmp(line, limiter, ft_strlen(limiter)) == 0)
+			{
+				exit(0);
+			}
+			write(fd[1], line, ft_strlen(line));
 		}
-		write(fd, line, ft_strlen(line));
-		free(line);
 	}
-	close(fd);
-	exit(0);
+	else
+	{
+		close(fd[1]);
+		dup2(fd[0], STDIN_FILENO);
+		wait(NULL);
+	}
 }
 
 void	exec(char *cmd, char **env)
@@ -81,15 +118,22 @@ int	main (int ac, char **av, char **env)
 	i = 3;
 	if (ac >= 5)
 	{
-		fdout = open_file(av[ac - 1], OUTFILE);
-		if (ft_strncmp(av[1], "here_doc", 8) == 0)
-			here_doc_input(av[2], fdout);
-		fdin = open_file(av[1], INFILE);
-		dup2(fdin, STDIN);
-		dup2(fdout, STDOUT);
-		redir(av[2], env, fdin);
+		if(ft_strncmp(av[1], "here_doc", 8) == 0)
+		{
+			i = 3;
+			fdout = open_file(av[ac - 1], OUTFILE);
+			here_doc(av[2], ac);
+		}
+		else
+		{
+			fdout = open_file(av[ac - 1], OUTFILE);
+			fdin = open_file(av[1], INFILE);
+			dup2(fdin, STDIN);
+		}
+		//redir(av[2], env, fdin);
 		while (i < ac - 2)
 			redir(av[i++], env, 1);
+		dup2(fdout, STDOUT);
 		exec(av[i], env);
 	}
 	else
