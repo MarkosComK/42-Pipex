@@ -423,7 +423,7 @@ Until one end is open, the other will be waiting for input and its process will 
 [2] Place `perror("Error")` in your code, especially right after fork() or execve() , to see what is going on in the pipe.
 Inside the pipe, everything we do will go to one of its ends.
 `printf` for ex. won’t print to the terminal, it will print to your outfile (because we swapped the stdout)
-`perror("Error")` will work because it prints to stderr.
+`perror("Error")` will work because it prints to stderr. You can also use write(2, "example", 7) if you want.
 
 [3] Handle file rights when `open()`ing them.
 Return error if the file cannot be opened, read or written. 
@@ -434,12 +434,8 @@ Check how the shell treats infile and outfile when they do not exist, are not re
 
 [Unix processes - Youtube playlist](https://www.youtube.com/watch?v=cex9XrZCU14&list=PLfqABt5AS4FkW5mOn2Tn9ZZLLDwA3kZUY)
 
-[Libft functions](https://www.asidesigned.com/project-libft.html) 
+[Compreensive guide to pipex - article](https://reactive.so/post/42-a-comprehensive-guide-to-pipex) 
 
-[Learn C](https://www.learn-c.org/)
-
-[Makefile tutor](https://www.cs.colby.edu/maxwell/courses/tutorials/maketutor/)
-
-[C-Programming-Language-2nd-Edition (PDF)](https://github.com/MarkosComK/42-Libft/files/14312769/C-Programming-Language-2nd-Edition.pdf)
+[Gemini](https://gemini.google.com/)
 
 For detailed information, refer to the [subject of the project](https://github.com/MarkosComK/42-Libft/files/14319130/00-libft-en.pdf)
