@@ -61,13 +61,15 @@ The fork( ) function in C is a system call that <strong>creates a new process</s
 
 ### How it works
 
-When fork() is called, two things happen:
+1. When fork() is called, two things happen:
 
+    ```C
     A new process is created: The operating system creates a copy of the parent process, including its memory space, open files, and other resources.
     Return value: The fork() function returns a value to both the parent and child processes:
 
     - In the parent process, fork() returns the process ID (PID) of the child process.
-    - In the child process, fork() returns 0.   
+    - In the child process, fork() returns 0.
+    ```
 
 Here is an example.
 
@@ -107,16 +109,20 @@ The pipe() function in C is a system call used for inter-process communication (
 
 ### How it works
 
-    Creation:
-        pipe() takes an array of two integers as input.
-        It creates a pipe and stores file descriptors for the read and write ends of the pipe in the first and second elements of the array respectively.
-        Returns 0 on success, -1 on failure.
+1. Creation:
+    ```sh
+    pipe() takes an array of two integers as input.
+    It creates a pipe and stores file descriptors for the read and write ends of the pipe in the first and second elements of the array respectively.
+    Returns 0 on success, -1 on failure.
+    ```
 
-    Reading and Writing:
-        The process that holds the write end can write data to the pipe using write().
-        The process that holds the read end can read data from the pipe using read().
-        The pipe has a limited buffer size. If a process writes more data than the buffer can hold, the write operation blocks until space is available.
-        If a process tries to read from an empty pipe, the read operation blocks until data is available.
+2. Reading and Writing:
+    ```sh
+    The process that holds the write end can write data to the pipe using write().
+    The process that holds the read end can read data from the pipe using read().
+    The pipe has a limited buffer size. If a process writes more data than the buffer can hold, the write operation blocks until space is available.
+    If a process tries to read from an empty pipe, the read operation blocks until data is available.
+    ```
 
 Heres a example code. If you do not understand yet, dont worry. The next snippet will make more sense, but yet, test this one.
 
