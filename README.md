@@ -247,7 +247,8 @@ FDs 0, 1 and 2 are by default assigned to stdin, stdout and stderr
 On linux, you can check your fds currently open with the command ls -la /proc/$$/fd  
 
 Our fd table right now looks like this:
-````
+
+````C
                            -----------------    
                  0         |     stdin     |  
                            -----------------    
@@ -264,12 +265,14 @@ Our fd table right now looks like this:
                  6         |     end[1]    |  
                            -----------------
 ````
+
 ## Swapping fds with dup2()
 
 For the child process, we want infile to be our stdin (as input), and end[1] to be our stdout (we write to end[1] the output of cmd1)  
 In the parent process, we want end[0] to be our stdin (end[0] reads from end[1] the output of cmd1), and outfile to be our stdout (we write to it the output of cmd2)  
 Visually,
-````
+
+````C
 // each cmd needs a stdin (input) and returns an output (to stdout)
    
     infile                                             outfile
@@ -288,13 +291,15 @@ as stdin for cmd1                                 as stdout for cmd2
 
 ````
 We swap fds to stdin/stdout with dup2()  
-From the MAN, 
-````
+From the MAN,
+
+```C
 int dup2(int fd1, int fd2) : it will close fd2 and duplicate the value of fd2 to fd1
 else said, it will redirect fd1 to fd2
-````
+```
 In pseudo code:
-````
+
+```C
 # child_process(f1, cmd1); // add protection if dup2() < 0
 // dup2 close stdin, f1 becomes the new stdin
 dup2(f1, STDIN_FILENO); // we want f1 to be execve() input
@@ -309,7 +314,7 @@ exit(EXIT_FAILURE);
 ````
 Parent process in pseudo code will be similar  
 It needs a `waitpid()` at the very beginning to wait for the child to finish her process  
-````
+```
 # parent_process(f2, cmd2);
 int status;
 waitpid(-1, &status, 0);
