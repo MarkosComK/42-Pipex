@@ -230,64 +230,7 @@ int main()
     return 0;
 }
 ```
-
-````
-# ./pipex infile cmd1 cmd2 outfile
-pipe()
- |
- |-- fork()
-      |
-      |-- child // cmd1
-      :     |--dup2()
-      :     |--close end[0]
-      :     |--execve(cmd1)
-      :
-      |-- parent // cmd2
-            |--dup2()
-            |--close end[1]
-            |--execve(cmd2)
- 
-# pipe() sends the output of the first execve() as input to the second execve()
-# fork() runs two processes (i.e. two commands) in one single program
-# dup2() swaps our files with stdin and stdout
- ````
-## Setting the pipe
-
-````
-void    pipex(int f1, int f2)
-{
-    int end[2];    pipe(end);
-}
-
-# pipe() takes an array of two int, and links them together
-# what is done in end[0] is visible to end[1], and vice versa
-# pipe() assigns an fd to each end
-# Fds are file descriptors
-# since files can be read and written to, by getting an fd each, the two ends can communicate
-# end[1] will write to the its own fd, and end[0] will read end[1]’s fd and write to its own
-
-````
-## Forking the processes
-
-````
-void    pipex(int f1, int f2)
-{
-    int   end[2];
-    pid_t parent;    pipe(end);
-    parent = fork();
-    if (parent < 0)
-         return (perror("Fork: "));
-    if (!parent) // if fork() returns 0, we are in the child process
-        child_process(f1, cmd1);
-    else
-        parent_process(f2, cmd2);
-}
-
-# fork() splits the process in two sub-processes -> parallel, simultaneous, happen at the same time
-# it returns 0 for the child process, a non-zero for the parent process, -1 in case of error
-````
-end[1] is the child process, end[0] the parent process; the child writes, the parent reads  
-Since for something to be read, it must be written first, so cmd1 will be executed by the child, and cmd2 by the parent.  
+All of this should give you a starting point. But dont forget to check the resources at the end of this file. 
 
 ## FDs
 pipex is run like this ./pipex infile cmd1 cmd2 outfile  
