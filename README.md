@@ -311,10 +311,10 @@ close(end[0]) # --> always close the end of the pipe you don't use,
 close(f1)
 // execve function for each possible path (see below)
 exit(EXIT_FAILURE);
-````
+```
 Parent process in pseudo code will be similar  
 It needs a `waitpid()` at the very beginning to wait for the child to finish her process  
-```
+```C
 # parent_process(f2, cmd2);
 int status;
 waitpid(-1, &status, 0);
@@ -324,7 +324,7 @@ close(end[1])
 close(f2);
 // execve function for each possible path (see below)
 exit(EXIT_FAILURE);
-````
+```
 ## Executing with execve()
 
 From the MAN,
