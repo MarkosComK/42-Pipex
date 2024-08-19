@@ -419,7 +419,7 @@ Check how the shell treats infile and outfile when they do not exist, are not re
 
 # Great Resources for Pipex
 
-[42-Gitbook](https://42-cursus.gitbook.io/guide)
+[Unix processes - Youtube playlist](https://www.youtube.com/watch?v=cex9XrZCU14&list=PLfqABt5AS4FkW5mOn2Tn9ZZLLDwA3kZUY)
 
 [Libft functions](https://www.asidesigned.com/project-libft.html) 
 
