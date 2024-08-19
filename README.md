@@ -438,4 +438,4 @@ Check how the shell treats infile and outfile when they do not exist, are not re
 
 [Gemini](https://gemini.google.com/)
 
-For detailed information, refer to the [subject of the project](https://github.com/MarkosComK/42-Libft/files/14319130/00-libft-en.pdf)
+For detailed information, refer to the [subject of the project](https://github.com/user-attachments/files/16664412/en.subject.pdf)
