@@ -169,10 +169,12 @@ int main() {
 
 ### Understanding the Basics
 
-Before diving into how pipe() and fork() work together, let's recap their individual functions:
+1. Before diving into how pipe() and fork() work together, let's recap their individual functions:
 
+    ```sh
     fork(): Creates a child process, which is a copy of the parent process. Both processes share the same memory space initially (copy-on-write).
     pipe(): Creates a unidirectional communication channel between two processes. Data written to one end can be read from the other.
+    ```
 
 ### Combining pipe() and fork()
 
