@@ -128,7 +128,8 @@ int main() {
     int pipefd[2];
     char buffer[1024];
 
-    if (pipe(pipefd) == -1) {
+    if (pipe(pipefd) == -1)
+    {
         perror("pipe");
         return 1;
     }
@@ -136,18 +137,94 @@ int main() {
     // Fork a child process
     pid_t pid = fork();
 
-    if (pid < 0) {
+    if (pid < 0)
+    {
         perror("fork");
         return 1;
-    } else if (pid == 0) { // Child process
+    }
+    else if (pid == 0) // Child process
+    {
         close(pipefd[0]); // Close the read end
         write(pipefd[1], "Hello from child\n", 14);
         close(pipefd[1]);
-    } else { // Parent process
+    }
+    else // Parent process
+    {
         close(pipefd[1]); // Close the write end
         read(pipefd[0], buffer, 1024);
         printf("Parent received: %s", buffer);
         close(pipefd[0]);
+    }
+
+    return 0;
+}
+```
+## Pipes and Forks: A Collaborative Duo
+
+### Understanding the Basics
+
+Before diving into how pipe() and fork() work together, let's recap their individual functions:
+
+    fork(): Creates a child process, which is a copy of the parent process. Both processes share the same memory space initially (copy-on-write).
+    pipe(): Creates a unidirectional communication channel between two processes. Data written to one end can be read from the other.
+
+### Combining pipe() and fork()
+
+A common use case for these functions is to create a parent-child relationship where data is passed from the parent to the child or vice versa through a pipe.
+
+Here's a breakdown of the steps involved:
+
+- Create a pipe:
+    Use pipe() to create a pipe, obtaining two file descriptors: one for reading (read end) and one for writing (write end).
+
+- Fork a child process:
+    Use fork() to create a child process. Both the parent and child processes will have copies of the file descriptors.
+
+- Close unnecessary file descriptors:
+    In the parent process, close the read end of the pipe as it will be used for writing.
+    In the child process, close the write end of the pipe as it will be used for reading.
+
+- Inter-process communication:
+    The parent process can write data to the write end of the pipe.
+    The child process can read data from the read end of the pipe.
+
+Example:
+
+```C
+#include <stdio.h>
+#include <unistd.h>
+
+int main() 
+{
+    int pipefd[2];
+    pid_t pid;
+
+    if (pipe(pipefd) == -1)
+    {
+        perror("pipe");
+        exit(1);
+    }
+
+    pid = fork();
+
+    if (pid < 0)
+    {
+        perror("fork");
+        exit(1);
+    }
+    else if (pid == 0) // Child process
+    {
+        close(pipefd[1]); // Close write end
+        char buffer[100];
+        read(pipefd[0], buffer, 100);
+        printf("Child process received: %s\n", buffer);
+        close(pipefd[0]);
+    }
+    else  // Parent process
+    {
+        close(pipefd[0]); // Close read end
+        write(pipefd[1], "Hello from parent\n", 16);
+        close(pipefd[1]);
     }
 
     return 0;
