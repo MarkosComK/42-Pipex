@@ -39,6 +39,121 @@
 </p>
 
 
+# The beginning
+
+To understand how to re-create the pipe used in shell we must understand the usage of those functions
+
+- fork( )
+- pipe( )
+- dup2( )
+- execve( )
+
+
+i will give you a small starting point of each of them them at the very end of this file you find resources not just for those functions but for the whole project.
+
+#
+
+## The fork( ) function
+
+Understanding fork( )
+
+The fork( ) function in C is a system call that <strong>creates a new process</strong>, which is a copy of the current process. This new process is called a child process, and the original process is the parent process.
+
+### How it works
+
+When fork() is called, two things happen:
+
+    A new process is created: The operating system creates a copy of the parent process, including its memory space, open files, and other resources.
+    Return value: The fork() function returns a value to both the parent and child processes:
+
+    - In the parent process, fork() returns the process ID (PID) of the child process.
+    - In the child process, fork() returns 0.   
+
+Here is an example.
+
+```C
+#include <stdio.h>
+#include <unistd.h>
+
+int main()
+{
+    pid_t pid = fork();
+
+    if (pid < 0) {
+        // Fork failed
+        perror("fork");
+        return (1);
+    } 
+    else if (pid == 0)
+    {
+        // Child process
+        printf("I am the child process\n");
+    } 
+    else
+    {
+        // Parent process
+        printf("I am the parent process\n");
+    }
+
+    return  
+ 0;
+}
+```
+<p>Don not forget to test every example so you can understand what is going on</p>
+
+## Understanding the pipe ( ) function
+
+The pipe() function in C is a system call used for inter-process communication (IPC). It creates a unidirectional communication channel between two processes. Data written to one end of the pipe can be read from the other end. That mean you can create a connection between those two processes using pipe(here is where the magic happens).
+
+### How it works
+
+    Creation:
+        pipe() takes an array of two integers as input.
+        It creates a pipe and stores file descriptors for the read and write ends of the pipe in the first and second elements of the array respectively.
+        Returns 0 on success, -1 on failure.
+
+    Reading and Writing:
+        The process that holds the write end can write data to the pipe using write().
+        The process that holds the read end can read data from the pipe using read().
+        The pipe has a limited buffer size. If a process writes more data than the buffer can hold, the write operation blocks until space is available.
+        If a process tries to read from an empty pipe, the read operation blocks until data is available.
+
+Heres a example code. If you do not understand yet, dont worry. The next snippet will make more sense, but yet, test this one.
+
+```C
+#include <stdio.h>
+#include <unistd.h>
+
+int main() {
+    int pipefd[2];
+    char buffer[1024];
+
+    if (pipe(pipefd) == -1) {
+        perror("pipe");
+        return 1;
+    }
+
+    // Fork a child process
+    pid_t pid = fork();
+
+    if (pid < 0) {
+        perror("fork");
+        return 1;
+    } else if (pid == 0) { // Child process
+        close(pipefd[0]); // Close the read end
+        write(pipefd[1], "Hello from child\n", 14);
+        close(pipefd[1]);
+    } else { // Parent process
+        close(pipefd[1]); // Close the write end
+        read(pipefd[0], buffer, 1024);
+        printf("Parent received: %s", buffer);
+        close(pipefd[0]);
+    }
+
+    return 0;
+}
+```
+
 ````
 # ./pipex infile cmd1 cmd2 outfile
 pipe()
