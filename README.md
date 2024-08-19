@@ -328,23 +328,23 @@ exit(EXIT_FAILURE);
 ## Executing with execve()
 
 From the MAN,
-````
+```C
 int execve(const char *path, char *const argv[], char *envp[]);
+/*
+path: the path to our command
+type `which ls` and `which wc` in your terminal
+you'll see the exact path to the commands' binaries
 
-# path: the path to our command
-# type `which ls` and `which wc` in your terminal
-# you'll see the exact path to the commands' binaries
+argv[]: the args the command needs, for ex. `ls -la`
+you can use your ft_split to obtain a char **
+like this { "ls", "-la", NULL }
+it must be null terminated
 
-# argv[]: the args the command needs, for ex. `ls -la`
-# you can use your ft_split to obtain a char **
-# like this { "ls", "-la", NULL }
-# it must be null terminated
-
-# envp: environmental variable -> retrieved from main (see below)
-# in envp the line PATH contains all possible paths to the commands' binaries
-# type env in the terminal to have a look
-# split on : to retrieve all possible PATHs 
-
+envp: environmental variable -> retrieved from main (see below)
+in envp the line PATH contains all possible paths to the commands' binaries
+type env in the terminal to have a look
+split on : to retrieve all possible PATHs 
+*/
 int main(int ac, char **ag, char **envp)
 {
      int f1;
@@ -356,13 +356,13 @@ int main(int ac, char **ag, char **envp)
      pipex(f1, f2, ag, envp);
      return (0);
 }
-````
+```
 `execve()` will try every possible path to the cmd until it finds the good one  
 If the command does not exist, `execve()` will do nothing and return -1;  
 else, it will execute the cmd and delete all ongoing processes (so no leaks)  
 
 In pseudo code,
-````
+```C
 // parsing (somewhere in your code) char *PATH_from_envp;
 char **mypaths;
 char **mycmdargs; // retrieve the line PATH from envp
@@ -382,10 +382,10 @@ while (mypaths[++i])
     free(cmd) // if execve fails, we free and we try a new path
 }
 return (EXIT_FAILURE);
-````
+```
 ## Creating a pipe with two child processes
 
-````
+```C
 void    pipex(int f1, int f2, char *cmd1, char *cmd 2)
 {
     int   end[2];
@@ -407,7 +407,7 @@ void    pipex(int f1, int f2, char *cmd1, char *cmd 2)
     waitpid(child1, &status, 0);  // supervising the children
     waitpid(child2, &status, 0);  // while they finish their tasks
 }
-````
+```
 ## Using access()
 
 If the command that does not exist, execve() will execute nothing without error messages  
