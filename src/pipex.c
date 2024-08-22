@@ -24,7 +24,7 @@ void	exec(char *cmd, char **env)
 		ft_putstr_fd("pipex: command not found: ", 2);
 		ft_putendl_fd(s_cmd[0], STDERR);
 		free_tab(s_cmd);
-		exit(0);
+		exit(127);
 	}
 }
 

@@ -40,7 +40,7 @@ int	open_file(char *file, int in_or_out)
 	if (in_or_out == 1)
 		ret = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (ret == -1)
-		exit(0);
+		exit(1);
 	return (ret);
 }
 
