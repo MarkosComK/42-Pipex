@@ -28,7 +28,6 @@ void	exec(char *cmd, char **env)
 	}
 }
 
-
 void	child(char **av, int *p_fd, char **env)
 {
 	int		fd;
