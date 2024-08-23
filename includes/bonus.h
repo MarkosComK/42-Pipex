@@ -24,6 +24,7 @@
 
 # define INFILE 0
 # define OUTFILE 1
+# define HERE_DOC 2
 
 void	close_pipes(int **fd);
 void	free_pipes(int **fd);

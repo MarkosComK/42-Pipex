@@ -91,7 +91,7 @@ int	main(int ac, char **av, char **env)
 		if (ft_strncmp(av[1], "here_doc", 8) == 0)
 		{
 			i = 3;
-			fdout = open_file(av[ac - 1], OUTFILE);
+			fdout = open_file(av[ac - 1], HERE_DOC);
 			here_doc(av[2]);
 		}
 		else
