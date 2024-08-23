@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:00:21 by marsoare          #+#    #+#             */
-/*   Updated: 2024/08/07 11:10:16 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/08/23 10:31:23 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	exec(char *cmd, char **env)
 	char	**s_cmd;
 	char	*path;
 
-	s_cmd = ft_split(cmd, ' ');
+	s_cmd = ft_exec_split(cmd, ' ');
 	path = get_path(s_cmd[0], env);
 	if (execve(path, s_cmd, env) == -1)
 	{
@@ -27,6 +27,7 @@ void	exec(char *cmd, char **env)
 		exit(127);
 	}
 }
+
 
 void	child(char **av, int *p_fd, char **env)
 {

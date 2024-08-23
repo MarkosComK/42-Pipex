@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:26:02 by marsoare          #+#    #+#             */
-/*   Updated: 2024/07/25 20:21:04 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/08/23 10:39:01 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ void	error_msg(char *str, int *fd, int file, int exit_code);
 char	*get_path(char *cmd, char **env);
 char	*my_getenv(char *name, char **env);
 int		open_file(char *file, int in_or_out);
+char	**ft_exec_split(char *str, char c);
 
 #endif
