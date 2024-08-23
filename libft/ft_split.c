@@ -16,12 +16,12 @@ static char		*word_get(char const *str, char c, int *i, int *in_quotes);
 static char		**ft_free(char **strs, int count);
 static char		*ft_strdupword(char const *str, int len);
 
-char **ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
-	char **result;
-	int i;
-	int j;
-	int iq;
+	char	**result;
+	int		i;
+	int		j;
+	int		iq;
 
 	result = NULL;
 	i = 0;
