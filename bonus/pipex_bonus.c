@@ -67,7 +67,6 @@ void	redir(char *cmd, char **env, int fdin)
 	{
 		close(pipefd[1]);
 		dup2(pipefd[0], STDIN);
-		waitpid(pid, NULL, 0);
 	}
 	else
 	{

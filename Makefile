@@ -65,4 +65,4 @@ clean:
 
 re: fclean all
 
-.PHONY: libft pipex
+.PHONY: libft pipex bonus
