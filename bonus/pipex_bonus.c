@@ -56,7 +56,7 @@ void	here_doc(char *limiter)
 		close(fd[0]);
 		while (42)
 		{
-			line = get_next_line(0);
+			line = get_next_line(0, limiter);
 			if (ft_strncmp(line, limiter, ft_strlen(limiter)) == 0)
 			{
 				free(line);
