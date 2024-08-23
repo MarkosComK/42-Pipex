@@ -11,37 +11,6 @@
 /* ************************************************************************** */
 
 #include "../includes/bonus.h"
-/*
-void	here_doc(char *limiter)
-{
-	char	*line;
-	int		fd[2];
-	pid_t	reader;
-
-	if (pipe(fd) == -1)
-		exit(0);
-	reader = fork();
-	if (reader == 0)
-	{
-		close(fd[0]);
-		while (42)
-		{
-			line = get_next_line(0);
-			if (ft_memcmp(line, limiter, ft_strlen(limiter)) == 0)
-			{
-				free(line);
-				break ;
-			}
-			write(fd[1], line, ft_strlen(line));
-			free(line);
-		}
-	}
-	close(fd[1]);
-	dup2(fd[1], STDIN_FILENO);
-	wait(NULL);
-	exit(0);
-}
-*/
 void	here_doc(char *limiter)
 {
 	pid_t	reader;
