@@ -9,7 +9,7 @@ TITLE = $(shell printf "\33[32;40m")
 
 NAME = pipex
 FLAGS = -Wall -Wextra -Werror -g
-SRCS = src/pipex.c src/utils.c src/ft_exec_split.c
+SRCS = src/pipex.c src/utils.c
 SRCS_BONUS = bonus/pipex_bonus.c bonus/utils_bonus.c
 OBJS = $(SRCS:.c=.o)
 OBJS_BONUS = $(SRCS_BONUS:.c=.o)
