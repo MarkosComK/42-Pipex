@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 11:29:01 by marsoare          #+#    #+#             */
-/*   Updated: 2024/08/12 11:32:19 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/08/23 10:14:26 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	here_doc(char *limiter)
 			if (ft_strncmp(line, limiter, ft_strlen(limiter)) == 0)
 			{
 				free(line);
-				exit(0);
+				break ;
 			}
 			write(fd[1], line, ft_strlen(line));
 			free(line);
