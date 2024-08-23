@@ -61,17 +61,17 @@ static int	word_len(char const *str, char c)
 {
 	int	len;
 	int	i;
-	int	in_quotes;
 
 	len = 0;
 	i = 0;
-	in_quotes = 0;
 	while (str[i])
 	{
-		if (str[i] != c && !in_quotes && (i == 0 || str[i - 1] == c))
+		if (str[i] != c)
+		{
 			len++;
-		else if (str[i] == '\'')
-			in_quotes = !in_quotes;
+		}
+		else if (str[i] == c)
+			break ;
 		i++;
 	}
 	return (len);
