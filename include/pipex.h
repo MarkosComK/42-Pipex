@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 20:12:30 by marsoare          #+#    #+#             */
-/*   Updated: 2024/08/24 23:19:28 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/08/24 23:55:42 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,16 @@ typedef struct s_pipex
 //check_args.c
 int	check_args(int argc, char **argv);
 
+//close.c
+void	close_n_free(t_pipex *pipex);
+void	close_files(t_files *files);
+void	close_pipefd(int cmd_nb, int **pipefd);
+
 //free.c
 void	free_char_matrix(char **matrix);
+void	free_int_matrix(int **matrix, int size);
+void	cmd_lstclear(t_cmd **start, void (*del)(void *));
+void	cmd_lstdelone(t_cmd *cmd, void (*del)(void *));
 
 //list_test
 void	print_paths(t_list *list);
