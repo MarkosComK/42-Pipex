@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 20:12:30 by marsoare          #+#    #+#             */
-/*   Updated: 2024/08/24 21:41:28 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/08/24 22:06:21 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,9 @@ typedef struct s_info
 	pid_t	last_pid;
 	int		exit_code;
 }				t_info;
+
+//check_args.c
+int	check_args(int argc, char **argv);
 
 //parser.c
 char	**quote_space_parser(int argc, char **argv);
