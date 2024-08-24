@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 20:12:30 by marsoare          #+#    #+#             */
-/*   Updated: 2024/08/24 23:55:42 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/08/24 23:58:38 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	cmd_lstdelone(t_cmd *cmd, void (*del)(void *));
 void	print_paths(t_list *list);
 void	print_files(t_files files);
 
-//parser.c
+//quote_parser.c
 char	**quote_space_parser(int argc, char **argv);
 int		counter(char *str, char c);
 char	*space_to_minus(char *str);
