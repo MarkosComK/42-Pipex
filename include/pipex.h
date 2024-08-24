@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 20:12:30 by marsoare          #+#    #+#             */
-/*   Updated: 2024/08/24 20:57:01 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/08/24 20:57:54 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,18 @@
 # define PDND "pipex: permission denied: "
 # define CNFD "pipex: command not found: "
 
+typedef struct files
+{
+	char	*inf;
+	int		in_e;
+	int		in_r;
+	int		in_fd;
+	char	*out;
+	int		out_e;
+	int		out_w;
+	int		out_fd;
+	int		here_doc;
+	char	*lim;
+}				t_files;
 
 #endif
