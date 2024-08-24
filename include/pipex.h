@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 20:12:30 by marsoare          #+#    #+#             */
-/*   Updated: 2024/08/24 22:30:15 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/08/24 22:36:17 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,9 @@ int	check_args(int argc, char **argv);
 
 //free.c
 void	free_char_matrix(char **matrix);
+
+//list_test
+void	print_list(t_list *list);
 
 //parser.c
 char	**quote_space_parser(int argc, char **argv);
