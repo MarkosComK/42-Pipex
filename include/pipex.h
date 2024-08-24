@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 20:12:30 by marsoare          #+#    #+#             */
-/*   Updated: 2024/08/24 22:15:58 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/08/24 22:30:15 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,9 @@ typedef struct s_pipex
 //check_args.c
 int	check_args(int argc, char **argv);
 
+//free.c
+void	free_char_matrix(char **matrix);
+
 //parser.c
 char	**quote_space_parser(int argc, char **argv);
 int		counter(char *str, char c);
@@ -84,5 +87,7 @@ char	*dequote_single(char *str);
 
 //pipex_init.c
 t_pipex	*pipex_init(int argc, char **argv, char **envp);
+t_list	*path_to_llist(char **envp, t_pipex *pipex);
+t_list	*create_path_list(char **tmp, t_pipex *pipex);
 
 #endif
