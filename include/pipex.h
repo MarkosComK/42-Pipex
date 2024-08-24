@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 20:12:30 by marsoare          #+#    #+#             */
-/*   Updated: 2024/08/24 20:58:54 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/08/24 20:59:31 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 # define PIPEX_H
 
 #include "../libft/libft.h"
+# include <stdlib.h>
+# include <stdio.h>
+# include <unistd.h>
 
 /* colors */
 # define RED "\033[31m"
