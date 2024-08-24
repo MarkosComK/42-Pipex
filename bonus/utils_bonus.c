@@ -16,6 +16,13 @@ int	open_file(char *file, int in_or_out)
 {
 	int	ret;
 
+	if (access(file, F_OK))
+	{
+		write(STDERR, "pipex: ", 7);
+		write(STDERR, file, ft_strlen(file));
+		write(STDERR, ": No such file or directory\n", 28);
+		return (STDIN);
+	}
 	if (in_or_out == 0)
 		ret = open(file, O_RDONLY, 0777);
 	if (in_or_out == 1)

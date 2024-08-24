@@ -33,15 +33,20 @@ void	error_msg(char	*msg, int *fd, int file, int exit_code)
 
 int	open_file(char *file, int in_or_out)
 {
-	int	ret;
-
-	if (in_or_out == 0)
-		ret = open(file, O_RDONLY, 0777);
-	if (in_or_out == 1)
-		ret = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0777);
-	if (ret == -1)
-		exit(1);
-	return (ret);
+	if (in_or_out == INFILE)
+	{
+		if (access(file, F_OK))
+		{
+			write(STDERR, "pipex: ", 7);
+			write(STDERR, file, ft_strlen(file));
+			write(STDERR, ": No such file or directory\n", 28);
+			return (STDIN);
+		}
+		return (open(file, O_RDONLY));
+	}
+	else
+		return (open(file, O_CREAT | O_WRONLY | O_TRUNC,
+				S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH));
 }
 
 void	free_tab(char **tab)

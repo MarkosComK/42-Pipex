@@ -17,6 +17,11 @@ void	exec(char *cmd, char **env)
 	char	**s_cmd;
 	char	*path;
 
+	if (ft_strncmp(cmd, " ", ft_strlen(cmd)) == 0)
+	{
+		ft_putstr_fd("pipex: command not found: ", 2);
+		ft_putendl_fd(cmd, STDERR);
+	}
 	s_cmd = ft_split(cmd, ' ');
 	path = get_path(s_cmd[0], env);
 	if (execve(path, s_cmd, env) == -1)
@@ -28,39 +33,44 @@ void	exec(char *cmd, char **env)
 	}
 }
 
-void	child(char **av, int *p_fd, char **env)
+void	redir(char *cmd, char **env, int fdin)
 {
-	int		fd;
+	pid_t	pid;
+	int		pipefd[2];
 
-	fd = open_file(av[1], INFILE);
-	dup2(fd, STDIN);
-	dup2(p_fd[1], STDOUT);
-	close(p_fd[0]);
-	exec(av[2], env);
-}
-
-void	parent(char **av, int *p_fd, char **env)
-{
-	int		fd;
-
-	fd = open_file(av[4], OUTFILE);
-	dup2(fd, STDOUT);
-	dup2(p_fd[0], STDIN);
-	close(p_fd[1]);
-	exec(av[3], env);
+	pipe(pipefd);
+	pid = fork();
+	if (pid)
+	{
+		close(pipefd[1]);
+		dup2(pipefd[0], STDIN);
+	}
+	else
+	{
+		close(pipefd[0]);
+		dup2(pipefd[1], STDOUT);
+		if (fdin == STDIN)
+			exit(1);
+		else
+			exec(cmd, env);
+	}
 }
 
 int	main(int ac, char **av, char **env)
 {
-	int		p_fd[2];
-	pid_t	pid;
+	int	fdin;
+	int	fdout;
 
-	if (ac != 5 || pipe(p_fd) == -1)
-		error_msg("Invalid arguments number!\n", NULL, -1, EXIT_FAILURE);
-	pid = fork();
-	if (pid == -1)
-		error_msg("Error calling fork!\n", p_fd, -1, EXIT_FAILURE);
-	if (!pid)
-		child(av, p_fd, env);
-	parent(av, p_fd, env);
+	if (ac == 5)
+	{
+		fdin = open_file(av[1], INFILE);
+		fdout = open_file(av[4], OUTFILE);
+		dup2(fdin, STDIN);
+		dup2(fdout, STDOUT);
+		redir(av[2], env, fdin);
+		exec(av[3], env);
+	}
+	else
+		write(STDERR, "Invalid number of arguments.\n", 29);
+	return (1);
 }
