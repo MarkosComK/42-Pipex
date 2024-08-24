@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 20:48:40 by marsoare          #+#    #+#             */
-/*   Updated: 2024/08/24 22:43:48 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/08/24 23:23:03 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@ int	main(int argc, char **argv, char **envp)
 		return (3);
 	argv = quote_space_parser(argc, argv);
 	pipex = pipex_init(argc, argv, envp);
-	print_list(pipex->path);
+	print_files(*pipex->files);
 	return (exit_code);
 }

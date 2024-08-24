@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 20:12:30 by marsoare          #+#    #+#             */
-/*   Updated: 2024/08/24 22:36:17 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/08/24 23:19:28 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
+# include <fcntl.h>
 
 /* colors */
 # define RED "\033[31m"
@@ -80,7 +81,8 @@ int	check_args(int argc, char **argv);
 void	free_char_matrix(char **matrix);
 
 //list_test
-void	print_list(t_list *list);
+void	print_paths(t_list *list);
+void	print_files(t_files files);
 
 //parser.c
 char	**quote_space_parser(int argc, char **argv);
@@ -92,5 +94,9 @@ char	*dequote_single(char *str);
 t_pipex	*pipex_init(int argc, char **argv, char **envp);
 t_list	*path_to_llist(char **envp, t_pipex *pipex);
 t_list	*create_path_list(char **tmp, t_pipex *pipex);
+t_files	*file_parser(int argc, char **argv);
+void	open_files(t_files *files);
+void	launch_here_doc(t_files *files);
+char	*str_join_double_free(char *s1, char *s2);
 
 #endif
