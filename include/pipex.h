@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 20:12:30 by marsoare          #+#    #+#             */
-/*   Updated: 2024/08/24 22:06:21 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/08/24 22:15:58 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }					t_cmd;
 
-typedef struct s_info
+typedef struct s_pipex
 {
 	t_files	*files;
 	t_list	*path;
@@ -71,7 +71,7 @@ typedef struct s_info
 	int		cmd_nb;
 	pid_t	last_pid;
 	int		exit_code;
-}				t_info;
+}				t_pipex;
 
 //check_args.c
 int	check_args(int argc, char **argv);
@@ -81,5 +81,8 @@ char	**quote_space_parser(int argc, char **argv);
 int		counter(char *str, char c);
 char	*space_to_minus(char *str);
 char	*dequote_single(char *str);
+
+//pipex_init.c
+t_pipex	*pipex_init(int argc, char **argv, char **envp);
 
 #endif

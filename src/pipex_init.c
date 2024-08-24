@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   pipex_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/24 20:48:40 by marsoare          #+#    #+#             */
-/*   Updated: 2024/08/24 22:12:32 by marsoare         ###   ########.fr       */
+/*   Created: 2024/08/24 22:14:18 by marsoare          #+#    #+#             */
+/*   Updated: 2024/08/24 22:18:20 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	main(int argc, char **argv, char **envp)
+t_pipex	*pipex_init(int argc, char **argv, char **envp)
 {
-	int		exit_code = 1;
-	(void) envp;
+	t_pipex	*pipex;
 
-	if (!check_args(argc, argv))
-		return (3);
-	argv = quote_space_parser(argc, argv);
-	pipex = pipex_init(argc, argv, envp);
-	return (exit_code);
+	pipex = malloc(1 * sizeof(t_pipex));
+	if (!pipex)
+		return (NULL);
+	pipex->pipefd = NULL;
+	pipex->cmd_nb = 0;
+	pipex->cmd_start = NULL;
+	pipex->path = path_to_llist(envp, info);
+	return (pipex);
 }
+
