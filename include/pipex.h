@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 20:12:30 by marsoare          #+#    #+#             */
-/*   Updated: 2024/08/24 20:57:54 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/08/24 20:58:26 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,16 @@ typedef struct files
 	int		here_doc;
 	char	*lim;
 }				t_files;
+
+typedef struct s_cmd
+{
+	int				index;
+	char			*cmd_name;
+	char			*cmd_path;
+	char			**cmd_argv;
+	int				exist;
+	int				is_exec;
+	struct s_cmd	*next;
+}					t_cmd;
 
 #endif
