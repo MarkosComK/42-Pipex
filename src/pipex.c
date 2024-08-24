@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 20:48:40 by marsoare          #+#    #+#             */
-/*   Updated: 2024/08/24 21:51:35 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/08/24 21:53:48 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,8 @@ int	main(int argc, char **argv, char **envp)
 	(void) argv;
 	(void) argc;
 
-	//argv = quote_space_parser(argc, argv);
-	char input[] = "This is a 'string with spaces' and a backslash \\ space";
-	char *output = space_to_minus(input);
-
-	ft_printf("Original string: %s\n", input);
-	ft_printf("Modified string: %s\n", output);
+	ft_printf("Original string: %s\n", argv[1]);
+	argv = quote_space_parser(argc, argv);
+	ft_printf("Modified string: %s\n", argv[1]);
 	return (exit_code);
 }
