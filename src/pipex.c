@@ -63,6 +63,8 @@ int	main(int ac, char **av, char **env)
 	int	fdin;
 	int	fdout;
 
+	if (!*env)
+		return (1);
 	if (ac == 5)
 	{
 		fdin = open_file(av[1], INFILE);
