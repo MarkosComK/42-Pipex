@@ -1,0 +1,21 @@
+#custom
+pipex
+
+# Prerequisites
+*.d
+
+# Object files
+*.o
+
+#nvim
+*.swp
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
