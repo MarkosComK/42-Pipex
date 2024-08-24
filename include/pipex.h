@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 20:12:30 by marsoare          #+#    #+#             */
-/*   Updated: 2024/08/24 23:58:38 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/08/25 00:27:59 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,15 +82,28 @@ void	close_n_free(t_pipex *pipex);
 void	close_files(t_files *files);
 void	close_pipefd(int cmd_nb, int **pipefd);
 
+//cmd_list_frees.c
+void	cmd_lstclear(t_cmd **start, void (*del)(void *));
+void	cmd_lstdelone(t_cmd *cmd, void (*del)(void *));
+
+//cmd_list_utils.c
+t_cmd	*cmd_lstnew(char **cmd_spltd, int index);
+t_cmd	*cmd_lstadd_back(t_cmd **start, t_cmd *new);
+t_cmd	*cmd_lstlast(t_cmd *start);
+
+//cmd_parser.c
+t_cmd	*cmd_parser(char **argv, t_pipex *pipex);
+int		set_cmd_infos(t_cmd **start, t_list *path);
+void	path_finder(t_cmd *cmd, t_list *path);
+
 //free.c
 void	free_char_matrix(char **matrix);
 void	free_int_matrix(int **matrix, int size);
-void	cmd_lstclear(t_cmd **start, void (*del)(void *));
-void	cmd_lstdelone(t_cmd *cmd, void (*del)(void *));
 
 //list_test
 void	print_paths(t_list *list);
 void	print_files(t_files files);
+void	print_cmd_list(t_cmd *start);
 
 //quote_parser.c
 char	**quote_space_parser(int argc, char **argv);

@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 22:14:18 by marsoare          #+#    #+#             */
-/*   Updated: 2024/08/24 23:56:17 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/08/25 00:25:20 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 t_pipex	*pipex_init(int argc, char **argv, char **envp)
 {
 	t_pipex	*pipex;
-	(void) argv;
-	(void) argc;
 
 	pipex = malloc(1 * sizeof(t_pipex));
 	if (!pipex)
@@ -28,7 +26,7 @@ t_pipex	*pipex_init(int argc, char **argv, char **envp)
 	pipex->files = file_parser(argc, argv);
 	if (!pipex->files)
 		return (close_n_free(pipex), NULL);
-	info->cmd = cmd_parser(argv, info);
+	pipex->cmd = cmd_parser(argv, pipex);
 	return (pipex);
 }
 
