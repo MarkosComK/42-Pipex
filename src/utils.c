@@ -12,23 +12,10 @@
 
 #include "../includes/pipex.h"
 
-void	error_msg(char	*msg, int *fd, int file, int exit_code)
+void	cmd_msg(char *msg, char *cmd)
 {
-	int	len;
-
-	if (msg)
-	{
-		len = ft_strlen(msg);
-		write(2, msg, len);
-	}
-	if (fd)
-	{
-		close(fd[0]);
-		close(fd[1]);
-	}
-	if (file >= 0)
-		close(file);
-	exit(exit_code);
+	ft_putstr_fd(msg, 2);
+	ft_putendl_fd(cmd, STDERR);
 }
 
 int	open_file(char *file, int in_or_out)
@@ -40,6 +27,13 @@ int	open_file(char *file, int in_or_out)
 			write(STDERR, "pipex: ", 7);
 			write(STDERR, file, ft_strlen(file));
 			write(STDERR, ": No such file or directory\n", 28);
+			return (STDIN);
+		}
+		else if (access(file, R_OK))
+		{
+			write(STDERR, "pipex: ", 7);
+			write(STDERR, file, ft_strlen(file));
+			write(STDERR, ": Permission denied\n", 20);
 			return (STDIN);
 		}
 		return (open(file, O_RDONLY));

@@ -19,23 +19,17 @@ void	exec(char *cmd, char **env)
 
 	if (ft_strncmp(cmd, " ", ft_strlen(cmd)) == 0)
 	{
-		ft_putstr_fd("pipex: command not found: ", 2);
-		ft_putendl_fd(cmd, STDERR);
+		cmd_msg("pipex: command not found: ", cmd);
+		exit(127);
 	}
 	s_cmd = ft_split(cmd, ' ');
 	path = get_path(s_cmd[0], env);
 	if (execve(path, s_cmd, env) == -1)
 	{
 		if (ft_strchr(s_cmd[0], '/'))
-		{
-			ft_putstr_fd("pipex: no such file or directory: ", 2);
-			ft_putendl_fd(s_cmd[0], STDERR);
-		}
+			cmd_msg("pipex: no such file or directory: ", s_cmd[0]);
 		else
-		{
-		ft_putstr_fd("pipex: command not found: ", 2);
-		ft_putendl_fd(s_cmd[0], STDERR);
-		}
+			cmd_msg("pipex: command not found: ", s_cmd[0]);
 		free_tab(s_cmd);
 		exit(127);
 	}

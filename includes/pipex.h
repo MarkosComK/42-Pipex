@@ -27,7 +27,7 @@
 # define OUTFILE 1
 
 void	free_tab(char **tab);
-void	error_msg(char *str, int *fd, int file, int exit_code);
+void	cmd_msg(char *msg, char *cmd);
 char	*get_path(char *cmd, char **env);
 char	*my_getenv(char *name, char **env);
 int		open_file(char *file, int in_or_out);
