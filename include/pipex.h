@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 20:12:30 by marsoare          #+#    #+#             */
-/*   Updated: 2024/08/24 20:58:26 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/08/24 20:58:54 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,17 @@ typedef struct s_cmd
 	int				is_exec;
 	struct s_cmd	*next;
 }					t_cmd;
+
+typedef struct s_info
+{
+	t_files	*files;
+	t_list	*path;
+	t_cmd	*cmd;
+	t_cmd	*cmd_start;
+	int		**pipefd;
+	int		cmd_nb;
+	pid_t	last_pid;
+	int		exit_code;
+}				t_info;
 
 #endif
