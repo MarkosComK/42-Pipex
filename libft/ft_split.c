@@ -29,7 +29,10 @@ char	**ft_split(char const *s, char c)
 	iq = 0;
 	result = ft_calloc((ft_count_words(s, c) + 1), sizeof(char *));
 	if (!result || !s)
+	{
+		free(result);
 		return (NULL);
+	}
 	while (s[i] && j < ft_count_words(s, c))
 	{
 		if ((s[i] == c && !iq) || (s[i] == '\'' && s[i + 1] == '\''))

@@ -21,6 +21,8 @@ int	ft_count_words(char const *str, const char delim)
 	count = 0;
 	x = 0;
 	i = 0;
+	if (!str)
+		return (0);
 	while (str[i])
 	{
 		if (str[i] != delim && !x && (i == 0 || str[i - 1] == delim))

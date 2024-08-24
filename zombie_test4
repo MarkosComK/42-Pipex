@@ -1,2 +1,2 @@
 USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
-marsoare 1987052  0.0  0.0      0     0 pts/1    Z+   17:48   0:00 [pipex] <defunct>
+marsoare 2050840  0.0  0.0      0     0 pts/1    Z+   19:56   0:00 [pipex] <defunct>
