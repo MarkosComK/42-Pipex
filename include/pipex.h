@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 20:12:30 by marsoare          #+#    #+#             */
-/*   Updated: 2024/08/24 20:56:33 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/08/24 20:57:01 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,15 @@
 # define BOLD "\033[1m"
 # define UNDRLN "\033[4m"
 # define END "\033[0m"
+
+/* pipes */
+# define READ_END 0
+# define WRITE_END 1
+
+/* custom err msg */
+# define NSFD "pipex: no such file or directory: "
+# define PDND "pipex: permission denied: "
+# define CNFD "pipex: command not found: "
 
 
 #endif
