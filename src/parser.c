@@ -6,29 +6,11 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 21:03:22 by marsoare          #+#    #+#             */
-/*   Updated: 2024/08/24 21:37:29 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/08/24 21:51:01 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-/* nb of single quotes not escapped by \ */
-
-int	counter(char *str, char c)
-{
-	int		i;
-
-	i = 0;
-	while (*str)
-	{
-		if (*str == c)
-			i++;
-		if (i > 0 && *str == c && *(str - 1) == '\\')
-			i--;
-		str++;
-	}
-	return (i);
-}
 
 /*
  *	If not quoted, if a backslash followed by any character:
@@ -52,6 +34,47 @@ int	counter(char *str, char c)
 	return 0;
 	}
  */
+char	**quote_space_parser(int argc, char **argv)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	if (argc > 1)
+	{
+		while (argv[i])
+		{
+			count = counter(argv[i], 39);
+			if (count % 2 != 0)
+			{
+				ft_putstr_fd("Quote error (odd number). Pipex exiting.\n", 2);
+				exit(EXIT_FAILURE);
+			}
+			argv[i] = space_to_minus(argv[i]);
+			argv[i] = dequote_single(argv[i]);
+			i++;
+		}
+	}
+	return (argv);
+}
+
+/* nb of single quotes not escapped by \ */
+int	counter(char *str, char c)
+{
+	int		i;
+
+	i = 0;
+	while (*str)
+	{
+		if (*str == c)
+			i++;
+		if (i > 0 && *str == c && *(str - 1) == '\\')
+			i--;
+		str++;
+	}
+	return (i);
+}
+
 char	*space_to_minus(char *str)
 {
 	int			in_quote;
@@ -100,28 +123,4 @@ char	*dequote_single(char *str)
 	}
 	new[++j] = '\0';
 	return (new);
-}
-
-char	**quote_space_parser(int argc, char **argv)
-{
-	int	i;
-	int	count;
-
-	i = 0;
-	if (argc > 1)
-	{
-		while (argv[i])
-		{
-			count = counter(argv[i], 39);
-			if (count % 2 != 0)
-			{
-				ft_putstr_fd("Quote error (odd number). Pipex exiting.\n", 2);
-				exit(EXIT_FAILURE);
-			}
-			argv[i] = space_to_minus(argv[i]);
-			argv[i] = dequote_single(argv[i]);
-			i++;
-		}
-	}
-	return (argv);
 }
