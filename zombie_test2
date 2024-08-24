@@ -1,2 +1,0 @@
-USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
-marsoare 2050802  0.0  0.0      0     0 pts/1    Z+   19:56   0:00 [sleep] <defunct>
