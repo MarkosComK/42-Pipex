@@ -3,53 +3,71 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bguillau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/15 13:36:33 by bguillau          #+#    #+#             */
-/*   Updated: 2022/11/21 11:19:42 by bguillau         ###   ########.fr       */
+/*   Created: 2024/04/14 14:29:04 by marsoare          #+#    #+#             */
+/*   Updated: 2024/04/14 19:26:29 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
-static int	n_len(int n)
-{
-	int	len;
-
-	len = 0;
-	if (n < 0)
-		len += 1;
-	while (n / 10)
-	{
-		len += 1;
-		n /= 10;
-	}
-	return (len + 1);
-}
+static int	num_len(long int n);
+static void	handle_zero(char **result, long int *nbr);
 
 char	*ft_itoa(int n)
 {
-	char			*res;
-	unsigned int	nb;
-	int				len;
+	char	*result;
+	long	nbr;
+	int		len;
 
-	len = n_len(n);
-	res = malloc((len + 1) * sizeof(char));
-	if (!res)
+	nbr = n;
+	len = num_len(n);
+	result = malloc(sizeof(char) * len + 1);
+	if (!result)
 		return (NULL);
+	handle_zero(&result, &nbr);
+	result[len] = 0;
+	if (nbr < 0)
+	{
+		result[0] = '-';
+		nbr = -nbr;
+	}
+	while (nbr)
+	{
+		result[len - 1] = nbr % 10 + 48;
+		nbr = nbr / 10;
+		len--;
+	}
+	return (result);
+}
+
+static void	handle_zero(char **result, long int *nbr)
+{
+	if (*nbr == 0)
+	{
+		**result = '0';
+		*nbr = -*nbr;
+	}
+}
+
+static int	num_len(long n)
+{
+	int	count;
+
+	count = 0;
 	if (n < 0)
 	{
-		*res = '-';
-		nb = n * -1;
+		count++;
+		n = -n;
 	}
-	else
-		nb = n;
-	res[len] = '\0';
-	while (nb / 10)
+	if (n == 0)
+		count++;
+	while (n != 0)
 	{
-		res[--len] = nb % 10 + '0';
-		nb /= 10;
+		n = n / 10;
+		count++;
 	}
-	res[--len] = nb % 10 + '0';
-	return (res);
+	return (count);
 }
