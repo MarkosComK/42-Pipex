@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 17:06:39 by marsoare          #+#    #+#             */
-/*   Updated: 2024/06/09 21:04:09 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/08/25 17:56:46 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,7 @@ char	*get_next_line(int fd, char *limiter)
 		return (NULL);
 	line = get_line(backup);
 	backup = get_rest(backup);
-	if (ft_strncmp(line, limiter, ft_strlen(limiter)) == 0){
+	if (ft_strncmp(line, limiter, ft_strlen(limiter)) == 0)
 		free(backup);
-	}
 	return (line);
 }
