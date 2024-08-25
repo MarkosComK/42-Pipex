@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 22:14:18 by marsoare          #+#    #+#             */
-/*   Updated: 2024/08/25 03:16:19 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/08/25 17:43:32 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,57 +136,4 @@ char	*str_join_double_free(char *s1, char *s2)
 	free(s1);
 	free(s2);
 	return (res);
-}
-
-t_list	*path_to_llist(char **envp, t_pipex *pipex)
-{
-	t_list	*path;
-	char	**tmp;
-
-	while (*envp)
-	{
-		if (!ft_strncmp("PATH", *envp, 4))
-			break ;
-		envp++;
-	}
-	path = NULL;
-	if (*envp)
-	{
-		tmp = ft_split(ft_strchr(*envp, '=') + 1, ':');
-		if (!tmp)
-		{
-			free(pipex);
-			exit(-2);
-		}
-		path = create_path_list(tmp, pipex);
-	}
-	return (path);
-}
-
-t_list	*create_path_list(char **tmp, t_pipex *pipex)
-{
-	int		i;
-	char	*content;
-	t_list	*new;
-	t_list	*path;
-
-	i = -1;
-	path = NULL;
-	while (tmp[++i])
-	{
-		content = ft_strdup(tmp[i]);
-		new = ft_lstnew(content);
-		if (!content || !new)
-		{
-			free(content);
-			free(new);
-			ft_lstclear(&path, &free);
-			free_char_matrix(tmp);
-			free(pipex);
-			exit(-2);
-		}
-		ft_lstadd_back(&path, new);
-	}
-	free_char_matrix(tmp);
-	return (path);
 }

@@ -19,7 +19,7 @@
 #  define BUFFER_SIZE 42
 # endif
 
-char	*get_next_line(int fd);
+char	*get_next_line(int fd, char *limiter);
 char	*get_read(int fd, char *backup);
 char	*get_line(char *backup);
 char	*get_strchr(char *s, int c);

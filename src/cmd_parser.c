@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 00:00:09 by marsoare          #+#    #+#             */
-/*   Updated: 2024/08/25 00:17:37 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/08/25 17:43:26 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ t_cmd	*cmd_parser(char **argv, t_pipex *pipex)
 		return (NULL);
 	return (start);
 }
-
 
 int	set_cmd_infos(t_cmd **start, t_list *path)
 {

@@ -94,7 +94,7 @@ char	*get_rest(char *backup)
 	return (rest);
 }
 
-char	*get_next_line(int fd)
+char	*get_next_line(int fd, char *limiter)
 {
 	char		*line;
 	static char	*backup;
@@ -106,5 +106,8 @@ char	*get_next_line(int fd)
 		return (NULL);
 	line = get_line(backup);
 	backup = get_rest(backup);
+	if (ft_strncmp(line, limiter, ft_strlen(limiter)) == 0){
+		free(backup);
+	}
 	return (line);
 }
