@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bguillau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/18 10:50:30 by marsoare          #+#    #+#             */
-/*   Updated: 2024/02/21 13:24:28 by marsoare         ###   ########.fr       */
+/*   Created: 2022/11/07 11:40:09 by bguillau          #+#    #+#             */
+/*   Updated: 2022/11/18 17:31:21 by bguillau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,12 @@
 
 void	ft_bzero(void *s, size_t n)
 {
-	ft_memset(s, 0, n);
-}
-/*
-#include <stdio.h>
-int	main(void)
-{
-	char	str[7] = "Markos";
+	char	*tmp;
 
-	ft_bzero(str+1, 3*sizeof(char));
-	printf("string after ft_bzero(): %s\n", str);
-	int i = 0;
-	while (i < 6)
-	{
-		write(1, &str[i], 1);
-		i++;
-	}
-	return (0);
+	if (!n || !s)
+		return ;
+	tmp = (char *)s;
+	while (--n)
+		tmp[n] = '\0';
+	tmp[n] = '\0';
 }
-*/

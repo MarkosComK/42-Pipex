@@ -127,7 +127,7 @@ void	launch_here_doc(t_files *files);
 char	*str_join_double_free(char *s1, char *s2);
 
 //redirect.c
-void	pipex(t_pipex *pipex, char **envp);
+void	pipex_process(t_pipex *pipex, char **envp);
 void	redirect(t_pipex *pipex, char **envp);
 void	dup_first_cmd(t_pipex *pipex);
 void	dupper(int new_fd, int old_fd, t_pipex *pipex);

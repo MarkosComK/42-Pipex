@@ -3,108 +3,97 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bguillau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/13 15:28:13 by marsoare          #+#    #+#             */
-/*   Updated: 2024/04/25 23:49:59 by marsoare         ###   ########.fr       */
+/*   Created: 2022/11/14 15:59:40 by bguillau          #+#    #+#             */
+/*   Updated: 2022/11/21 11:25:38 by bguillau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char		*word_get(char const *str, char c, int *i, int *in_quotes);
-static char		**ft_free(char **strs, int count);
-static char		*ft_strdupword(char const *str, int len);
-
-char	**ft_split(char const *s, char c)
+static int	count_wd(char const *s, char c)
 {
-	char	**result;
-	int		i;
-	int		j;
-	int		iq;
+	int	i;
+	int	j;
+	int	nb;
 
-	result = NULL;
+	nb = 0;
 	i = 0;
-	j = 0;
-	iq = 0;
-	result = ft_calloc((ft_count_words(s, c) + 1), sizeof(char *));
-	if (!result || !s)
-		return (NULL);
-	while (s[i] && j < ft_count_words(s, c))
+	while (s[i])
 	{
-		if ((s[i] == c && !iq) || (s[i] == '\'' && s[i + 1] == '\''))
+		while (s[i] && s[i] == c)
 			i++;
-		else
+		j = 0;
+		while (s[i] && s[i] != c)
 		{
-			result[j] = word_get(s, c, &i, &iq);
-			if (!result)
-				return (ft_free(result, j), NULL);
 			j++;
+			i++;
 		}
+		if (j)
+			nb += 1;
 	}
-	return (result[j] = NULL, result);
+	return (nb);
 }
 
-static char	**ft_free(char **strs, int count)
+static char	*gen_wd(const char *s, char c, int *i)
+{
+	int		j;
+	char	*res;
+
+	j = 0;
+	while (s[*i] && s[*i] == c)
+		*i += 1;
+	while (s[*i] && s[*i] != c)
+	{
+		j++;
+		*i += 1;
+	}
+	res = malloc((j + 1) * sizeof(char));
+	if (!res)
+		return (NULL);
+	*i -= j;
+	while (s[*i] && s[*i] != c)
+	{
+		*res++ = s[*i];
+		*i += 1;
+	}
+	*res = '\0';
+	return (res - j);
+}
+
+static void	free_all(char **res, int j)
 {
 	int	i;
 
 	i = 0;
-	while (i < count)
-	{
-		free(strs[i]);
-		i++;
-	}
-	free(strs);
-	return (NULL);
+	while (i < j)
+		free(res[i++]);
+	free(res);
 }
 
-static char	*word_get(char const *str, char c, int *i, int *in_quotes)
+char	**ft_split(char const *s, char c)
 {
-	int	start;
-	int	len;
-
-	start = *i;
-	len = 0;
-	while (str[*i])
-	{
-		if (str[*i] == '\'' && !(*in_quotes))
-		{
-			*in_quotes = 1;
-			if ((*i)++ | len++)
-				continue ;
-		}
-		if (str[*i] == '\'' && *in_quotes)
-		{
-			*in_quotes = 0;
-			if ((*i)++ | len++)
-				continue ;
-		}
-		if (str[*i] == c && !(*in_quotes))
-			break ;
-		(*i)++;
-		len++;
-	}
-	return (ft_strdupword(&str[start], len));
-}
-
-static char	*ft_strdupword(char const *str, int len)
-{
-	char	*dup;
+	char	**res;
 	int		i;
 	int		j;
 
+	if (!s)
+		return (NULL);
+	res = malloc((count_wd(s, c) + 1) * sizeof(char *));
+	if (!res)
+		return (NULL);
 	i = 0;
 	j = 0;
-	dup = malloc((len + 1) * sizeof(char));
-	if (!dup)
-		return (NULL);
-	while (i < len && str[i])
+	while (s[i] && j < count_wd(s, c))
 	{
-		if (str[i] == '\'')
-			i++;
-		dup[j++] = str[i++];
+		res[j] = gen_wd(s, c, &i);
+		if (!res[j++])
+		{
+			free_all(res, j);
+			return (NULL);
+		}
 	}
-	dup[j] = '\0';
-	return (dup);
+	res[j] = NULL;
+	return (res);
 }

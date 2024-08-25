@@ -95,7 +95,7 @@ void	launch_here_doc(t_files *files)
 		return ;
 	while (1)
 	{
-		ft_printf("here_doc > ");
+		ft_fprintf(1, "here_doc > ");
 		line = get_next_line(0);
 		if (!line)
 			return (free(data));

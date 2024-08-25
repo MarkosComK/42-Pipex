@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bguillau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/12 20:10:47 by marsoare          #+#    #+#             */
-/*   Updated: 2024/04/19 13:37:27 by marsoare         ###   ########.fr       */
+/*   Created: 2022/11/09 18:30:00 by bguillau          #+#    #+#             */
+/*   Updated: 2022/11/22 14:47:04 by bguillau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,25 @@
 
 char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
-	size_t	strlen;
+	size_t	n;
+	size_t	i;
 
-	strlen = ft_strlen(little);
-	if (!*little)
-		return ((char *)big);
-	while (*big && len > 0)
+	if (!big || !little)
+		return (NULL);
+	if (!ft_strlen(little))
+		return ((char *) big);
+	n = 0;
+	while (big[n] && n < len)
 	{
-		if (!(ft_strncmp(big, little, strlen)) && len >= strlen)
+		if (big[n] == *little)
 		{
-			return ((char *)big);
+			i = 0;
+			while (big[n + i] && big[n + i] == little[i] && n + i < len)
+				i++;
+			if (i == ft_strlen(little))
+				return ((char *) &big[n]);
 		}
-		big++;
-		len--;
+		n++;
 	}
 	return (NULL);
 }

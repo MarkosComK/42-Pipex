@@ -3,46 +3,67 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bguillau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/13 14:49:43 by marsoare          #+#    #+#             */
-/*   Updated: 2024/04/20 10:22:20 by marsoare         ###   ########.fr       */
+/*   Created: 2022/11/14 14:18:09 by bguillau          #+#    #+#             */
+/*   Updated: 2022/11/21 11:28:49 by bguillau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+static int	is_charset(char c, const char *set)
+{
+	int	i;
+
+	i = 0;
+	while (set[i])
+	{
+		if (c == set[i++])
+			return (1);
+	}
+	return (0);
+}
+
+static void	count_ards(size_t *fw, size_t *bw, char const *s1, char const *set)
+{
+	int	i;
+
+	i = 0;
+	while (s1[i] && is_charset(s1[i], set))
+	{
+		*fw += 1;
+		i++;
+	}
+	i = ft_strlen(s1) -1;
+	while (i >= 0 && is_charset(s1[i--], set))
+		*bw += 1;
+}
+
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	int		i;
-	int		j;
+	char	*res;
+	size_t	i;
+	size_t	backw;
+	size_t	forw;
 
-	i = 0;
-	if (!s1 || !set || s1[0] == '\0')
-		return (ft_strdup(""));
-	j = ft_strlen(s1) - 1;
-	while (ft_strchr(set, (int)s1[i]))
-		i++;
-	while (ft_strrchr(set, (int)s1[j]))
-		j--;
-	return (ft_substr(s1, i, j - i + 1));
-}
-/*
-static char	*ft_strndup(const char *s, int start, int end)
-{
-	char	*dup;
-	int		i;
-
-	dup = (char *)malloc(sizeof(char) * (end - start + 1));
-	if (!dup)
+	if (!s1 || !set)
 		return (NULL);
-	i = 0;
-	while (start < end)
-	{
-		dup[i] = s[start];
-		i++;
-		start++;
-	}
-	dup[i] = 0;
-	return (dup);
-}*/
+	forw = 0;
+	backw = 0;
+	count_ards(&forw, &backw, s1, set);
+	if (backw + forw < ft_strlen(s1))
+		res = malloc((ft_strlen(s1) - backw - forw + 1) * sizeof(char));
+	else
+		res = malloc(1 * sizeof(char));
+	if (!res)
+		return (NULL);
+	i = forw;
+	while (i < ft_strlen(s1) - backw)
+		*res++ = s1[i++];
+	*res = '\0';
+	if (backw + forw < ft_strlen(s1))
+		return (res - ft_strlen(s1) + backw + forw);
+	else
+		return (res);
+}

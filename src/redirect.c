@@ -6,13 +6,13 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 01:24:37 by marsoare          #+#    #+#             */
-/*   Updated: 2024/08/25 01:59:56 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/08/25 02:04:57 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	pipex(t_pipex *pipex, char **envp)
+void	pipex_process(t_pipex *pipex, char **envp)
 {
 	pid_t	pid;
 
@@ -49,12 +49,13 @@ void	redirect(t_pipex *pipex, char **envp)
 		dup_mid_cmd(pipex);
 	else
 		dup_last_cmd(pipex);
+	ft_fprintf(2, "%i", pipex->cmd->exist);
 	if (pipex->cmd->exist)
 	{
 		if (!ft_strchr(pipex->cmd->cmd_name, '/'))
-			ft_putendl_fd(CNFD, 2);
+			ft_fprintf(2, "%s%s\n", CNFD, pipex->cmd->cmd_name);
 		else
-			ft_putendl_fd(NSFD, 2);
+			ft_fprintf(2, "HERE 2%s%s\n", NSFD, pipex->cmd->cmd_name);
 		close_n_free(pipex);
 		exit(EXIT_FAILURE);
 	}
@@ -110,7 +111,7 @@ void	dup_last_cmd(t_pipex *pipex)
 	else
 	{
 		close(pipex->pipefd[pipex->cmd->index - 1][READ_END]);
-		ft_printf("%s%s\n", PDND, pipex->files->out);
+		ft_putendl_fd(PDND, 2);
 		pipex->exit_code = 1;
 		close_n_free(pipex);
 		exit(EXIT_FAILURE);

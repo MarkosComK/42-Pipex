@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bguillau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/13 14:23:57 by marsoare          #+#    #+#             */
-/*   Updated: 2024/04/13 14:48:56 by marsoare         ###   ########.fr       */
+/*   Created: 2022/11/14 14:05:39 by bguillau          #+#    #+#             */
+/*   Updated: 2022/11/21 11:26:14 by bguillau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,22 @@
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*endstr;
-	int		totlen;
+	char	*res;
 	int		i;
+	int		j;
 
-	totlen = ft_strlen(s1) + ft_strlen(s2);
-	endstr = (char *)malloc(sizeof(char) * totlen + 1);
-	if (endstr == 0)
+	if (!s1 || !s2)
 		return (NULL);
-	i = 0;
-	while (*s1)
-	{
-		endstr[i] = *s1;
-		i++;
-		s1++;
-	}
-	while (*s2)
-	{
-		endstr[i] = *s2;
-		i++;
-		s2++;
-	}
-	endstr[i] = 0;
-	return (endstr);
+	res = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+	if (!res)
+		return (NULL);
+	i = -1;
+	j = -1;
+	while (s1[++i])
+			res[++j] = s1[i];
+	i = -1;
+	while (s2[++i])
+			res[++j] = s2[i];
+	res[++j] = '\0';
+	return (res);
 }

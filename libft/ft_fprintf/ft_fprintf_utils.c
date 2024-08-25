@@ -1,32 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   ft_printf_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bguillau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/17 16:07:40 by bguillau          #+#    #+#             */
-/*   Updated: 2022/11/18 18:10:38 by bguillau         ###   ########.fr       */
+/*   Created: 2022/11/23 13:47:57 by bguillau          #+#    #+#             */
+/*   Updated: 2022/11/23 16:53:36 by bguillau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_fprintf.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void *))
+void	ft_putunbr_fd(unsigned int n, int fd)
 {
-	t_list	*tmp;
-
-	if (!lst || !*lst)
+	if (fd < 0)
 		return ;
-	if (!del)
+	if (n >= 10)
 	{
-		*lst = NULL;
-		return ;
+		ft_putnbr_fd(n / 10, fd);
 	}
-	while (*lst)
-	{
-		tmp = (*lst)->next;
-		ft_lstdelone(*lst, del);
-		*lst = tmp;
-	}
+	ft_putchar_fd(n % 10 + '0', fd);
 }

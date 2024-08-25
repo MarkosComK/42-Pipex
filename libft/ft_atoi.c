@@ -3,38 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bguillau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/10 14:46:18 by marsoare          #+#    #+#             */
-/*   Updated: 2024/04/14 21:36:51 by marsoare         ###   ########.fr       */
+/*   Created: 2022/11/09 20:08:52 by bguillau          #+#    #+#             */
+/*   Updated: 2022/11/21 11:16:04 by bguillau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *ptr)
+int	ft_atoi(const char *nptr)
 {
-	int	result;
-	int	sign;
-	int	i;
+	char	*nbr;
+	int		sign;
+	int		res;
 
-	result = 0;
+	nbr = (char *) nptr;
 	sign = 1;
-	i = 0;
-	while ((ptr[i] >= '\t' && ptr[i] <= '\r') || ptr[i] == ' ')
+	while (*nbr == ' ' || *nbr == '\t' || *nbr == '\n' || *nbr == '\r'
+		|| *nbr == '\v' || *nbr == '\f')
+		nbr++;
+	if (*nbr == '+' || *nbr == '-')
 	{
-		i++;
+		if (*nbr == '-')
+			sign *= -1;
+		nbr++;
 	}
-	if (ptr[i] == '-' || ptr[i] == '+')
-	{
-		if (ptr[i] == '-')
-			sign = -1;
-		i++;
-	}
-	while (ptr[i] && ptr[i] >= 48 && ptr[i] <= 57)
-	{
-		result = result * 10 + ptr[i] - 48;
-		i++;
-	}
-	return (result * sign);
+	res = 0;
+	while (*nbr >= '0' && *nbr <= '9')
+		res = res * 10 + (*nbr++ - '0');
+	return (res * sign);
 }
