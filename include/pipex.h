@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 20:12:30 by marsoare          #+#    #+#             */
-/*   Updated: 2024/08/25 17:42:53 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/08/25 17:49:38 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,12 @@ void	path_finder(t_cmd *cmd, t_list *path);
 t_list	*path_to_llist(char **envp, t_pipex *pipex);
 t_list	*create_path_list(char **tmp, t_pipex *pipex);
 
+//dups.c
+void	dup_first_cmd(t_pipex *pipex);
+void	dupper(int new_fd, int old_fd, t_pipex *pipex);
+void	dup_mid_cmd(t_pipex *pipex);
+void	dup_last_cmd(t_pipex *pipex);
+
 //free.c
 void	free_char_matrix(char **matrix);
 void	free_int_matrix(int **matrix, int size);
@@ -131,10 +137,6 @@ char	*str_join_double_free(char *s1, char *s2);
 //redirect.c
 void	pipex_process(t_pipex *pipex, char **envp);
 void	redirect(t_pipex *pipex, char **envp);
-void	dup_first_cmd(t_pipex *pipex);
-void	dupper(int new_fd, int old_fd, t_pipex *pipex);
-void	dup_mid_cmd(t_pipex *pipex);
-void	dup_last_cmd(t_pipex *pipex);
 void	wait_cmds(t_pipex *pipex);
 
 #endif
