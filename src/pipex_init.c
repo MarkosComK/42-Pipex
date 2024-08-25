@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 22:14:18 by marsoare          #+#    #+#             */
-/*   Updated: 2024/08/25 01:00:13 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/08/25 03:16:19 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	launch_here_doc(t_files *files)
 		return ;
 	while (1)
 	{
-		ft_fprintf(1, "here_doc > ");
+		ft_printf("here_doc > ");
 		line = get_next_line(0);
 		if (!line)
 			return (free(data));

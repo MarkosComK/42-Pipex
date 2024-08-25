@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 01:24:37 by marsoare          #+#    #+#             */
-/*   Updated: 2024/08/25 02:04:57 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/08/25 03:16:56 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,12 @@ void	redirect(t_pipex *pipex, char **envp)
 		dup_mid_cmd(pipex);
 	else
 		dup_last_cmd(pipex);
-	ft_fprintf(2, "%i", pipex->cmd->exist);
 	if (pipex->cmd->exist)
 	{
 		if (!ft_strchr(pipex->cmd->cmd_name, '/'))
-			ft_fprintf(2, "%s%s\n", CNFD, pipex->cmd->cmd_name);
+			ft_putendl_fd(CNFD, 2);
 		else
-			ft_fprintf(2, "HERE 2%s%s\n", NSFD, pipex->cmd->cmd_name);
+			ft_putendl_fd(NSFD, 2);
 		close_n_free(pipex);
 		exit(EXIT_FAILURE);
 	}
