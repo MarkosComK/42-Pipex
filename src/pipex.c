@@ -15,8 +15,7 @@
 int	main(int argc, char **argv, char **envp)
 {
 	t_pipex	*pipex;
-	int		exit_code = 1;
-	(void) envp;
+	int		exit_code;
 
 	if (!check_args(argc, argv))
 		return (3);

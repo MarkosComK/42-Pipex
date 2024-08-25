@@ -96,7 +96,7 @@ void	launch_here_doc(t_files *files)
 	while (1)
 	{
 		ft_printf("here_doc > ");
-		line = get_next_line(0);
+		line = get_next_line(0, files->lim);
 		if (!line)
 			return (free(data));
 		if (*line == 0)
@@ -128,10 +128,10 @@ char	*str_join_double_free(char *s1, char *s2)
 	i = -1;
 	j = -1;
 	while (s1[++i])
-			res[++j] = s1[i];
+		res[++j] = s1[i];
 	i = -1;
 	while (s2[++i])
-			res[++j] = s2[i];
+		res[++j] = s2[i];
 	res[++j] = '\0';
 	free(s1);
 	free(s2);
