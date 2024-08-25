@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 01:24:37 by marsoare          #+#    #+#             */
-/*   Updated: 2024/08/25 01:56:36 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/08/25 01:58:28 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,9 @@ void	dup_first_cmd(t_pipex *pipex)
 	{
 		close(pipex->pipefd[pipex->cmd->index][WRITE_END]);
 		if (pipex->files->in_e)
-			ft_putstr_fd(NSFD, 2);
+			ft_putendl_fd(NSFD, 2);
 		else if (pipex->files->in_r)
-			ft_printf("%s%s\n", PDND, pipex->files->inf);
+			ft_putendl_fd(PDND, 2);
 		close_n_free(pipex);
 		exit(EXIT_FAILURE);
 	}
