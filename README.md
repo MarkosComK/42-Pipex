@@ -99,8 +99,7 @@ int main()
         printf("I am the parent process\n");
     }
 
-    return  
- 0;
+    return 0;
 }
 ```
 <p>Don not forget to test every example so you can understand what is going on</p>
@@ -415,6 +414,30 @@ void    pipex(int f1, int f2, char *cmd1, char *cmd 2)
 If the command that does not exist, execve() will execute nothing without error messages  
 You need to check if the command exists before its execution with `access()`, else send an error `pipex: weirdcmd: weirdcmd not found`  
 
+## Important tips to keep in mind
+
+- test your pipex with this cmd
+
+```C
+./pipex infile "sleep 5" "sleep" outfile
+```
+
+this sould not wait 10s on screen, but only 5. Compare with the same cmd in bash. Might be the wait().
+
+- You might need to change your split to handle special arguments such as:
+
+```C
+~$ < infile tr pe ' X' |  tr pi ' P' > outfile
+```
+
+See how works on bash and if you can do the same in yout pipex. Your split at this point pobabily dont handle to separate CMD like this 
+
+```C
+./pipex infile "tr pe ' X'" "tr pi ' P'" outfile
+```
+
+nothing like a pain to change your ft_split to consider this special cases, but dont stop when they're done. Look for more special cases and see if your split handle them the way it should.
+
 ## Debugging
 
 [0] When splitting the env, print out the result of split. Add a `/` at the end for the path to work correctly.
@@ -422,13 +445,13 @@ You need to check if the command exists before its execution with `access()`, el
 [1] If the program gets stuck without executing anything, most probably the pipe ends are not closed correctly.
 Until one end is open, the other will be waiting for input and its process will not finish.
 
-[2] Place `perror("Error")` in your code, especially right after fork() or execve() , to see what is going on in the pipe.
+[2] Place `perror("Error")` in your code, especially right after fork() or execve() , to see what is going on in the pipe. Here's a good moment to use your _fd functions.
 Inside the pipe, everything we do will go to one of its ends.
 `printf` for ex. won’t print to the terminal, it will print to your outfile (because we swapped the stdout)
-`perror("Error")` will work because it prints to stderr. You can also use write(2, "example", 7) if you want.
+`perror("Error")` will work because it prints to stderr. You can also use write(2, "example", 7) if you want. Remember you got _fd functions as well.
 
 [3] Handle file rights when `open()`ing them.
-Return error if the file cannot be opened, read or written. 
+Return error if the file cannot be opened, read or written. access() comes handy here.
 Check how the shell treats infile and outfile when they do not exist, are not readable, writable etc. (chmod is your best friend).
 
 
