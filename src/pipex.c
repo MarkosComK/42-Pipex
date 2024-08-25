@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 20:48:40 by marsoare          #+#    #+#             */
-/*   Updated: 2024/08/25 01:16:53 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/08/25 01:52:04 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,13 @@ int	main(int argc, char **argv, char **envp)
 	if (!pipex)
 		return (4);
 	pipex->pipefd = get_pipes(pipex);
+	if (!pipex->pipefd)
+	{
+		close_n_free(pipex);
+		return (4);
+	}
+	redirect(pipex, envp);
+	exit_code = analyze_exit_code(pipex->exit_code, pipex);
 	close_n_free(pipex);
 	return (exit_code);
 }
