@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 20:12:30 by marsoare          #+#    #+#             */
-/*   Updated: 2024/08/25 01:00:04 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/08/25 01:16:58 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,9 @@ void	path_finder(t_cmd *cmd, t_list *path);
 //free.c
 void	free_char_matrix(char **matrix);
 void	free_int_matrix(int **matrix, int size);
+
+//get_pipes.c
+int	**get_pipes(t_pipex *pipex);
 
 //list_test
 void	print_paths(t_list *list);
