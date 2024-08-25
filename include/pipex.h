@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 20:12:30 by marsoare          #+#    #+#             */
-/*   Updated: 2024/08/25 00:27:59 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/08/25 01:00:04 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void	cmd_lstdelone(t_cmd *cmd, void (*del)(void *));
 t_cmd	*cmd_lstnew(char **cmd_spltd, int index);
 t_cmd	*cmd_lstadd_back(t_cmd **start, t_cmd *new);
 t_cmd	*cmd_lstlast(t_cmd *start);
+int		cmd_lstsize(t_cmd *start);
 
 //cmd_parser.c
 t_cmd	*cmd_parser(char **argv, t_pipex *pipex);

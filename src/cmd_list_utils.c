@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 00:12:38 by marsoare          #+#    #+#             */
-/*   Updated: 2024/08/25 00:16:47 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/08/25 00:59:19 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,17 @@ t_cmd	*cmd_lstlast(t_cmd *start)
 	while (start->next)
 		start = start->next;
 	return (start);
+}
+
+int	cmd_lstsize(t_cmd *start)
+{
+	int	i;
+
+	i = 0;
+	while (start)
+	{
+		i++;
+		start = start->next;
+	}
+	return (i);
 }

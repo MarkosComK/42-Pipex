@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 22:14:18 by marsoare          #+#    #+#             */
-/*   Updated: 2024/08/25 00:25:20 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/08/25 01:00:13 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ t_pipex	*pipex_init(int argc, char **argv, char **envp)
 	if (!pipex->files)
 		return (close_n_free(pipex), NULL);
 	pipex->cmd = cmd_parser(argv, pipex);
+	if (!pipex->cmd)
+		return (close_n_free(pipex), NULL);
+	pipex->cmd_start = pipex->cmd;
+	pipex->cmd_nb = cmd_lstsize(pipex->cmd_start);
+	pipex->exit_code = 0;
 	return (pipex);
 }
 
