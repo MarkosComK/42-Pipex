@@ -6,14 +6,14 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 20:12:30 by marsoare          #+#    #+#             */
-/*   Updated: 2024/08/25 17:49:38 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/08/25 17:55:37 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
 
-#include "../libft/libft.h"
+# include "../libft/libft.h"
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
@@ -76,7 +76,7 @@ typedef struct s_pipex
 }				t_pipex;
 
 //check_args.c
-int	check_args(int argc, char **argv);
+int		check_args(int argc, char **argv);
 
 //close.c
 void	close_n_free(t_pipex *pipex);
@@ -114,7 +114,7 @@ void	free_int_matrix(int **matrix, int size);
 int		analyze_exit_code(int status, t_pipex *pipex);
 
 //get_pipes.c
-int	**get_pipes(t_pipex *pipex);
+int		**get_pipes(t_pipex *pipex);
 
 //list_test
 void	print_paths(t_list *list);
