@@ -22,3 +22,6 @@ pipex
 
 #testers
 *.sh
+
+#nvim
+compile_flags.txt
