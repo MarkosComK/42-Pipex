@@ -15,10 +15,8 @@ LIBFTDIR = libft/
 SRC_DIR = srcs/
 
 SRCS = $(wildcard src/*.c)
-SRCS_BONUS = $(wildcard src_bonus/*.c)
 
 OBJS = ${SRCS:.c=.o}
-OBJS_BONUS = ${SRCS_BONUS:.c=.o}
 
 INCLUDE = -L ./libft -lft
 
@@ -40,24 +38,6 @@ ${NAME}: ${OBJS}
 	@echo "$(GREEN) Successfully compiled pipex.$(RESET)"
 	@echo
 	@echo
-
-${NAME}_bonus: ${OBJS_BONUS}
-	@make --silent -C $(LIBFTDIR)
-	@${CC} ${FLAGS} ${OBJS_BONUS} -o ${NAME}_bonus ${INCLUDE}
-	@echo
-	@echo
-	@echo "$(PURPLE)██████╗ ██╗██████╗ ███████╗██╗  ██╗"
-	@echo "██╔══██╗██║██╔══██╗██╔════╝╚██╗██╔╝"
-	@echo "██████╔╝██║██████╔╝█████╗   ╚███╔╝ "
-	@echo "██╔═══╝ ██║██╔═══╝ ██╔══╝   ██╔██╗ "
-	@echo "██║     ██║██║     ███████╗██╔╝ ██╗"
-	@echo "╚═╝     ╚═╝╚═╝     ╚══════╝╚═╝  ╚═╝"
-	@echo
-	@echo "$(GREEN) Successfully compiled pipex_bonus.$(RESET)"
-	@echo
-	@echo
-
-bonus: ${NAME}_bonus
 
 all: ${NAME}
 

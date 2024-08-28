@@ -6,7 +6,7 @@
 /*   By: marsoare <marsoare@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 21:59:50 by marsoare          #+#    #+#             */
-/*   Updated: 2024/08/28 10:52:32 by marsoare         ###   ########.fr       */
+/*   Updated: 2024/08/28 11:28:59 by marsoare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 int	check_args(int argc, char **argv)
 {
-	if (argc < 5 || argc > 5)
+	if (argc < 5)
 	{
-		ft_putstr_fd("Provide 4 arguments\n", 2);
+		ft_putstr_fd("Provide at least 4 arguments\n", 2);
 		ft_putstr_fd("Usage : ", 2);
-		ft_putstr_fd("\"infile\" \"cmd1\" \"cmd2\" ", 2);
-		ft_putstr_fd("\"outfile\"\n", 2);
+		ft_putstr_fd("\"infile\" \"cmd1\" \"cmd2\" ... ", 2);
+		ft_putstr_fd(" \"cmdn\" \"outfile\"\n", 2);
 		return (0);
 	}
 	if (!ft_strncmp(argv[1], "here_doc", ft_strlen("here_doc")) && argc < 6)
